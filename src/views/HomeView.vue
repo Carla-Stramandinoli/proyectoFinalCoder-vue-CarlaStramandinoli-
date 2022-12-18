@@ -6,7 +6,7 @@
         Cliente
       </button>
 
-      <modal-formulario @enviar="cerrarModal($event)" ref="modal"/>
+      <modal-formulario @enviar="cerrarModal($event, 'MRegCliente')" ref="modal"/>
     </div>
     <div class="btn-admin">
       <button type="button" class="btn btn-warning">Administrador</button>
@@ -15,7 +15,7 @@
     <h5>Ingresar como:</h5>
     <div>
       <button @click="showModalLog" type="button" class="btn btn-info btn-cliente">Cliente</button>
-      <loguear-cliente ref="modalLog"/>
+      <loguear-cliente @enviar="cerrarModal($event, 'MLogCliente')" ref="modalLog"/>
     </div>
     <div class="btn-admin">
       <button type="button" class="btn btn-warning">Administrador</button>
@@ -44,10 +44,10 @@ export default {
       let elementModal = this.$refs.modalLog.$el;
       $(elementModal).modal('show');
     },
-    cerrarModal(data) {
-      let elementModal = this.$refs.modal.$el;
+    cerrarModal(data, elementModal) {
       $(elementModal).modal('hide');
-      console.log(data);
+      $('body').removeClass('modal-open');
+      $('.modal-backdrop').remove();
       this.$router.push('/cliente')
     },
   }

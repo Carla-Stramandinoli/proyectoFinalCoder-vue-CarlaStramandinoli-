@@ -1,6 +1,6 @@
 <template>
-  <div class="modal" id="exampleModalRegCliente" tabindex="-1">
-    <div class="modal-dialog">
+  <div class="modal" id="MRegCliente" data-backdrop="no"  role="dialog" backdrdattabindex="-1">
+    <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title">Registrarse:</h5>
@@ -42,15 +42,16 @@
                 <br>
               </ValidationProvider>
               <!-- confirmar password -->
-              <ValidationProvider name="password" rules="required|confirmed:password" v-slot="{ errors }">
+              <!-- <ValidationProvider name="password" rules="required|confirmed:password" v-slot="{ errors }">
                 <label for="exampleInputPassword1" class="form-label">Confirmar contraseña:</label>
                 <input v-model="newClientePass" type="password" class="form-control"
                   placeholder="Repetir contraseña" id="exampleInputPassword1">
 
                 <span>{{ errors[0] }}</span>
                 <br>
-              </ValidationProvider>
-              
+              </ValidationProvider> -->
+
+
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
                 <button @submit.prevent="validarFormulario()" type="submit" class="btn btn-success add-cliente">
@@ -69,6 +70,7 @@
 import { ValidationProvider, ValidationObserver } from 'vee-validate';
 import { extend } from 'vee-validate';
 import { required, alpha, email, alpha_num } from 'vee-validate/dist/rules';
+
 
 extend('required', {
   ...required,
@@ -106,7 +108,6 @@ export default {
       alert("Formulario enviado!");
       this.$emit("enviar", this.$data);
 
-      //this.$router.push('/dashboard')
       // setTimeout(() => {
       //   document.getElementById("formulario").reset();
       //   Object.assign(this.$data, this.$options.data());
