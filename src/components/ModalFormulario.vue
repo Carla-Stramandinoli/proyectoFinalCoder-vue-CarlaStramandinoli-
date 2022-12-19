@@ -1,13 +1,14 @@
 <template>
-  <div class="modal" id="MRegCliente" data-backdrop="no"  role="dialog" backdrdattabindex="-1">
+  <div class="modal" id="MRegCliente" data-backdrop="no" role="dialog" backdrdattabindex="-1">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title">Registrarse:</h5>
         </div>
         <ValidationObserver v-slot="{ handleSubmit }">
-          <div class="modal-body">
-            <form role="form" class="form-control" @submit.prevent="handleSubmit(validarFormulario)" id="formulario">
+          <div class="modal-body" id="modal-body">
+            <form role="form" class="form-control" @subtmit.prevent="newCliente()"
+              @submit.prevent="handleSubmit(validarFormulario)" id="formulario">
               <!-- nombre -->
               <ValidationProvider name="nombre" rules="alpha|required" v-slot="{ errors }">
                 <label for="exampleInputName" class="form-label">Nombre:</label>
@@ -61,6 +62,11 @@
             </form>
           </div>
         </ValidationObserver>
+        <div id="spinner">
+          <div class="spinner-border text-success" role="">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -70,6 +76,10 @@
 import { ValidationProvider, ValidationObserver } from 'vee-validate';
 import { extend } from 'vee-validate';
 import { required, alpha, email, alpha_num } from 'vee-validate/dist/rules';
+import axios from 'axios';
+// import $ from 'jquery/src/jquery.js';
+
+
 
 
 extend('required', {
@@ -105,14 +115,25 @@ export default {
   },
   methods: {
     validarFormulario() {
-      alert("Formulario enviado!");
-      this.$emit("enviar", this.$data);
-
-      // setTimeout(() => {
-      //   document.getElementById("formulario").reset();
-      //   Object.assign(this.$data, this.$options.data());
-      // }, 2000);
-    },
+      const newCliente = {
+        name: this.newClienteName,
+        lastName: this.newClienteLastName,
+        email: this.newClienteEmail,
+        password: this.newClientePass,
+      }
+      const URLPOST = "https://639f79eb5eb8889197fd60c9.mockapi.io/Clientes";
+      const request = axios({
+        method: "POST",
+        url: URLPOST,
+        data: newCliente,
+      })
+      let thisComponente = this;
+      request.then(function (response) {
+        console.log(response);
+        thisComponente.$emit("enviar", response);
+        // $("#spinner").fadeIn();
+      })
+    }
   }
 }
 </script>

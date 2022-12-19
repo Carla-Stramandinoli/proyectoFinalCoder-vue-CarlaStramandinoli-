@@ -5,20 +5,16 @@
       <button @click="showModalReg"  type="button" class="btn btn-info btn-cliente">
         Cliente
       </button>
-
       <modal-formulario @enviar="cerrarModal($event, 'MRegCliente')" ref="modal"/>
     </div>
-    <div class="btn-admin">
-      <button type="button" class="btn btn-warning">Administrador</button>
-    </div>
-
     <h5>Ingresar como:</h5>
     <div>
-      <button @click="showModalLog" type="button" class="btn btn-info btn-cliente">Cliente</button>
-      <loguear-cliente @enviar="cerrarModal($event, 'MLogCliente')" ref="modalLog"/>
+      <button @click="showModalLog('#cliente')" type="button" class="btn btn-info btn-cliente">Cliente</button>
+      <loguear-cliente :titulo="'cliente'" @enviar="cerrarModal($event, 'cliente')" ref="modalLog"/>
     </div>
     <div class="btn-admin">
-      <button type="button" class="btn btn-warning">Administrador</button>
+      <button @click="showModalLog('#administrador')" type="button" class="btn btn-warning">Administrador</button>
+      <loguear-cliente :titulo="'administrador'" @enviar="cerrarModal($event, 'administrador')" ref="modalLog"/>
     </div>
   </div>
 </template>
@@ -40,15 +36,14 @@ export default {
       let elementModal = this.$refs.modal.$el;
       $(elementModal).modal('show');
     },
-    showModalLog() {
-      let elementModal = this.$refs.modalLog.$el;
-      $(elementModal).modal('show');
+    showModalLog(elementModal) {
+     $(elementModal).modal('show');
     },
     cerrarModal(data, elementModal) {
       $(elementModal).modal('hide');
       $('body').removeClass('modal-open');
       $('.modal-backdrop').remove();
-      this.$router.push('/cliente')
+      this.$router.push('/' + data.view)
     },
   }
 };
