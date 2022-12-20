@@ -77,7 +77,7 @@ export default {
 
 .card-home {
   background-color: #C7D3BF;
-  margin-top: 30%;
+  margin-top: 40%;
 }
 
 h4 {

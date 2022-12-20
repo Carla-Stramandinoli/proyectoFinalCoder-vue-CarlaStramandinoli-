@@ -16,4 +16,8 @@ Vue.config.productionTip = false
 new Vue({
   router,
   render: h => h(App),
+  mounted() {
+    // You are able to access plugin from everywhere via this.$toastr
+    this.$toastr.defaultPosition = "toast-top-left";
+  }
 }).$mount('#app')

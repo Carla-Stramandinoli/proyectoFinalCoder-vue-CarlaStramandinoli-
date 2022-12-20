@@ -1,7 +1,7 @@
 <template>
   <div>
     <div>
-      <carrito-compras :elements="itemDelCarrito" />
+      <carrito-compras @vaciarCarrito="confirmarVaciar($event)" :elements="itemDelCarrito" />
     </div>
     <div class="col-12">
       <div class="card-clientes">
@@ -88,10 +88,11 @@ export default {
   },
   methods: {
     agregarElemento(nuevoProducto) {
-      console.log(this.itemDelCarrito);
       this.itemDelCarrito.push(nuevoProducto);
-      this.$toastr.s("Producto agregado");
-      
+      this.$toastr.s("Producto agregado al carrito");
+    },
+    confirmarVaciar() {
+      this.itemDelCarrito = [];
     }
   }
 }

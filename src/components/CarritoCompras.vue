@@ -12,7 +12,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
       </div>
       <div class="offcanvas-body">
-        <table class="table table-success table-responsive">
+        <table class="table table-responsive">
           <thead>
             <tr>
               <th>Producto</th>
@@ -20,7 +20,7 @@
               <th>Precio</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody class="table-group-divider">
             <tr v-for="(producto, index) of elements" :key="index">
               <td>{{ producto.name }}</td>
               <td>{{ producto.cantidad }}</td>
@@ -31,11 +31,14 @@
             <tr>
               <th>Total</th>
               <th></th>
-              <th id="precio-total"> ${{ obtenerTotal }}</th>
+              <th id="precio-total"> ${{ obtenerTotal() }}</th>
             </tr>
           </tfoot>
         </table>
-        <button @click="finalizarCompra()" class="btn btn-dark">Finalizar compra</button>
+        <div class="btn-group">
+          <button @click="finalizarCompra()" class="btn btn-outline-dark">Finalizar compra</button>
+          <button @click="vaciarCarrito()" id="btn-delete" class="btn btn-outline-secondary">Vaciar</button>
+        </div>
       </div>
     </div>
   </div>
@@ -52,26 +55,24 @@ export default {
   data() {
     return {
       data: this.elements,
+      total: 0,
     }
   },
-  computed: {
+
+  methods: {
     obtenerTotal() {
       let total = 0;
-      this.data.forEach(element => {
-        console.log(element);
+      this.$data.data.forEach(element => {
         total += parseFloat(element.precio);
       })
-      return total;
-    }
-  },
-  methods: {
+      return this.total = total;
+    },
     finalizarCompra() {
       alert("Compra finalizada!")
       let body = {
-        precioFinal: this.obtenerTotal,
+        precioFinal: this.obtenerTotal(),
         list_productos: this.$data.data,
       }
-
       const URLPOST = "https://639f79eb5eb8889197fd60c9.mockapi.io/carrito";
       const request = axios({
         method: "POST",
@@ -81,6 +82,15 @@ export default {
       request.then(function (response) {
         console.log(response);
       })
+      this.$emit("vaciarCarrito");
+      this.$data.data = [];
+    },
+    vaciarCarrito() {
+      if (confirm("Estas seguro que deseas eliminar la lista")) {
+        this.$emit("vaciarCarrito");
+        this.$data.data = [];
+        //Resolver como hacer para vaciar el carrito y que se pueda "volver a usar(que vuelva a calcular el total, envie bien la info a la api)" sin recargar la pagina 
+      }
     }
   },
 }
@@ -94,6 +104,7 @@ button {
 h5 {
   font-size: 30px;
 }
+
 .btn-position {
   position: fixed;
   z-index: 100;

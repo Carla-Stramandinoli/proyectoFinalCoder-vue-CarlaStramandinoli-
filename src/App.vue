@@ -7,7 +7,7 @@
     <div class="container">
       <router-view/>
     </div>
-    <div>
+    <div class="footer">
       <footer v-show="conFooter" class="encabezado">
       <p>Copyright Naguikki-ya 2022</p>
     </footer>
@@ -39,5 +39,9 @@ data() {
   font-family: "Courier New", Courier, monospace;
   background-color: #C7D3BF;
   padding: 10px;
+}
+
+.footer { 
+  margin-top: 35%;
 }
 </style>
