@@ -1,5 +1,5 @@
 <template>
-  <div class="modal" id="MRegCliente" data-backdrop="no" role="dialog" backdrdattabindex="-1">
+  <div class="modal" v-bind:id="(id)" data-backdrop="no" role="dialog" backdrdattabindex="-1">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -42,17 +42,6 @@
                 <span>{{ errors[0] }}</span>
                 <br>
               </ValidationProvider>
-              <!-- confirmar password -->
-              <!-- <ValidationProvider name="password" rules="required|confirmed:password" v-slot="{ errors }">
-                <label for="exampleInputPassword1" class="form-label">Confirmar contraseña:</label>
-                <input v-model="newClientePass" type="password" class="form-control"
-                  placeholder="Repetir contraseña" id="exampleInputPassword1">
-
-                <span>{{ errors[0] }}</span>
-                <br>
-              </ValidationProvider> -->
-
-
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
                 <button @submit.prevent="validarFormulario()" type="submit" class="btn btn-success add-cliente">
@@ -79,9 +68,6 @@ import { required, alpha, email, alpha_num } from 'vee-validate/dist/rules';
 import axios from 'axios';
 // import $ from 'jquery/src/jquery.js';
 
-
-
-
 extend('required', {
   ...required,
   message: 'Este campo es obligatorio.',
@@ -105,6 +91,10 @@ export default {
     ValidationProvider,
     ValidationObserver,
   },
+  props: {
+    titulo: String,
+    id: String
+  },
   data() {
     return {
       newClienteName: "",
@@ -121,7 +111,7 @@ export default {
         email: this.newClienteEmail,
         password: this.newClientePass,
       }
-      const URLPOST = "https://639f79eb5eb8889197fd60c9.mockapi.io/Clientes";
+      const URLPOST = "https://639f79eb5eb8889197fd60c9.mockapi.io/usuario";
       const request = axios({
         method: "POST",
         url: URLPOST,
@@ -130,7 +120,7 @@ export default {
       let thisComponente = this;
       request.then(function (response) {
         console.log(response);
-        thisComponente.$emit("enviar", response);
+        thisComponente.$emit("enviar", {response, view: thisComponente.titulo});
         // $("#spinner").fadeIn();
       })
     }
