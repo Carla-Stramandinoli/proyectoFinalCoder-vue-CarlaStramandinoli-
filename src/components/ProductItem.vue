@@ -1,4 +1,6 @@
+
 <template>
+  <!-- hacer que carguen las imagenes que yo quiero y no las de la api -->
   <div class="card col-3 m-2 border card-prod">
     <img :src="img" :alt="name" />
     <div class="card-body">
