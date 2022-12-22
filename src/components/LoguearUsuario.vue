@@ -69,6 +69,7 @@ export default {
     }
   },
   methods: {
+    //modificar ingresos, si esta logueado o no, hacer log-out
     validarFormulario() {
       let userId = 2;
       let estaLogueado = false;

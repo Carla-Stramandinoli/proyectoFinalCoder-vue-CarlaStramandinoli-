@@ -38,7 +38,6 @@
                 <label for="exampleInputPassword1" class="form-label">Contraseña:</label>
                 <input v-model="newClientePass" type="password" class="form-control"
                   placeholder="Debe contener letras y numeros" id="exampleInputPassword1">
-
                 <span>{{ errors[0] }}</span>
                 <br>
               </ValidationProvider>
@@ -51,11 +50,6 @@
             </form>
           </div>
         </ValidationObserver>
-        <div id="spinner">
-          <div class="spinner-border text-success" role="">
-            <span class="visually-hidden">Loading...</span>
-          </div>
-        </div>
       </div>
     </div>
   </div>
@@ -66,7 +60,6 @@ import { ValidationProvider, ValidationObserver } from 'vee-validate';
 import { extend } from 'vee-validate';
 import { required, alpha, email, alpha_num } from 'vee-validate/dist/rules';
 import axios from 'axios';
-// import $ from 'jquery/src/jquery.js';
 
 extend('required', {
   ...required,
@@ -121,7 +114,6 @@ export default {
       request.then(function (response) {
         console.log(response);
         thisComponente.$emit("enviar", {response, view: thisComponente.titulo});
-        // $("#spinner").fadeIn();
       })
     }
   }

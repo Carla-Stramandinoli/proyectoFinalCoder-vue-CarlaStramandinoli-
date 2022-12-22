@@ -22,17 +22,19 @@
           </div>
         </div>
       </div>
-      <br>
+      <br />
       <div class="d-flex justify-content-center">
-        <button @click="addAlCarrito(nClave)" class="btn btn-success">Agregar producto</button>
-        <input v-bind:id="(nClave)" v-bind:value="quantity" type="number">
+        <button @click="addAlCarrito(nClave)" class="btn btn-success">
+          Agregar producto
+        </button>
+        <input v-bind:id="nClave" v-bind:value="quantity" type="number" />
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import $ from 'jquery';
+import $ from "jquery";
 
 export default {
   name: "ProductItem",
@@ -50,11 +52,10 @@ export default {
       cantidad: 1,
       name: this.$props.nombre,
       precio: this.$props.price,
-    }
+    };
   },
   methods: {
     addAlCarrito(idInputCantidad) {
-      console.log("se esta ejecutando")
       const input = $("#" + idInputCantidad)[0];
       console.log(idInputCantidad);
       console.log(input.value);
@@ -69,7 +70,7 @@ export default {
       });
       input.value = 1;
     },
-  }
+  },
 };
 </script>
 

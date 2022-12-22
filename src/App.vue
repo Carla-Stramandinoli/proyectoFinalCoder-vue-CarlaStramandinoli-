@@ -41,7 +41,4 @@ data() {
   padding: 10px;
 }
 
-.footer { 
-  margin-top: 35%;
-}
 </style>
