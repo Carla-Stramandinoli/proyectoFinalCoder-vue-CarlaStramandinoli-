@@ -4,11 +4,17 @@
         <div class="card card-home">
           <div class="card-body">
             <h4 class="card-title">Registrarse como:</h4>
+            <div class="btn-group" role="group" aria-label="Basic example">
             <button @click="showModalReg" type="button" class="btn btn-lg btn-success btn-cliente">
               Cliente
             </button>
             <modal-reg-formulario :titulo="'cliente'" :id="'rCliente'" @enviar="cerrarModal($event, 'cliente')"
               ref="modal" />
+            <button @click="showModalRegAdmin" type="button" class="btn btn-lg btn-light">
+              Administrador
+            </button>
+            </div>
+           
           </div>
         </div>
       </div>
@@ -47,6 +53,9 @@ export default {
     showModalReg() {
       let elementModal = this.$refs.modal.$el;
       $(elementModal).modal('show');
+    },
+    showModalRegAdmin() {
+
     },
     showModalLog(elementModal) {
       $(elementModal).modal('show');
