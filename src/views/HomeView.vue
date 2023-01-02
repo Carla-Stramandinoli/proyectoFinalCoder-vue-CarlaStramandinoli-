@@ -5,16 +5,16 @@
           <div class="card-body">
             <h4 class="card-title">Registrarse como:</h4>
             <div class="btn-group" role="group" aria-label="Basic example">
-            <button @click="showModalReg" type="button" class="btn btn-lg btn-success btn-cliente">
+            <button @click="showModalReg" type="button" class="btn btn-lg btn-success">
               Cliente
             </button>
             <modal-reg-formulario :titulo="'cliente'" :id="'rCliente'" @enviar="cerrarModal($event, 'cliente')"
-              ref="modal" />
+              ref="modalCli" />
             <button @click="showModalRegAdmin" type="button" class="btn btn-lg btn-light">
               Administrador
             </button>
+            <form-admin :titulo="'administrador'" :id="'rAdmin'" @enviar="cerrarModal($event, 'administrador')" ref="modalAdmin"/>
             </div>
-           
           </div>
         </div>
       </div>
@@ -39,23 +39,27 @@
 
 <script>
 import $ from 'jquery/src/jquery.js';
-import 'bootstrap'
+import 'bootstrap';
 import ModalRegFormulario from "@/components/ModalRegFormulario.vue";
+import FormAdmin from '@/components/FormAdmin.vue';
 import LoguearUsuario from '@/components/LoguearUsuario.vue';
+
 
 export default {
   name: 'HomeView',
   components: {
     ModalRegFormulario,
     LoguearUsuario,
+    FormAdmin
   },
   methods: {
     showModalReg() {
-      let elementModal = this.$refs.modal.$el;
+      let elementModal = this.$refs.modalCli.$el;
       $(elementModal).modal('show');
     },
     showModalRegAdmin() {
-
+      let elementModal = this.$refs.modalAdmin.$el;
+      $(elementModal).modal('show');
     },
     showModalLog(elementModal) {
       $(elementModal).modal('show');

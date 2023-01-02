@@ -5,7 +5,7 @@
     </div>
     <button @click="cargarElementos()" class="btn btn-outline-success m-2">Ver productos</button>
     <div class="col-12">
-      <div class="card-clientes" >
+      <div class="card-clientes">
         <div class="row m-2 d-flex justify-content-between">
           <product-item @agregalo_carrito="agregarElemento($event)" v-for="(elemento, index) of element" :key="index"
             :id="(elemento.nClave + index)" :nombre="elemento.name" :nClave="elemento.nClave" :img="elemento.img"
@@ -46,8 +46,20 @@ export default {
         thisComponenet.element = response.data;
       })
     },
+    //banana 1, manzana 2, uva 5, NUEVO banana 1
     agregarElemento(nuevoProducto) {
-      this.itemDelCarrito.push(nuevoProducto);
+      let itemNOexiste = true; 
+      this.itemDelCarrito.forEach((item) => {
+        console.log(item);
+        if (item.name == nuevoProducto.name) {
+          item.cantidad = parseInt(item.cantidad) + parseInt(nuevoProducto.cantidad);
+          item.precio += nuevoProducto.precio;
+          itemNOexiste = false;
+        } 
+      })
+      if(itemNOexiste){
+        this.itemDelCarrito.push(nuevoProducto);
+      }
       this.$toastr.s("Producto agregado al carrito");
     },
     confirmarVaciar() {

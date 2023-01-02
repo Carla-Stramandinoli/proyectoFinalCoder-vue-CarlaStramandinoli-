@@ -70,7 +70,7 @@ export default {
     img: String,
     description: String,
     price: String,
-    quantity: Number,
+    quantity: String,
   },
   data() {
     return {

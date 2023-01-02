@@ -29,7 +29,7 @@
         <button @click="addAlCarrito(nClave)" class="btn btn-success">
           Agregar producto
         </button>
-        <input v-bind:id="nClave" v-bind:value="quantity" type="number" />
+        <input v-bind:id="nClave" v-model="cantidad" type="number" />
       </div>
     </div>
   </div>
@@ -46,18 +46,22 @@ export default {
     nombre: String,
     img: String,
     description: String,
-    price: Number,
-    quantity: Number,
+    price: String,
+    quantity: String,
   },
   data() {
     return {
       cantidad: 1,
       name: this.$props.nombre,
       precio: this.$props.price,
-    };
+    }
   },
   methods: {
     addAlCarrito(idInputCantidad) {
+      console.log("Este " + this.$data.cantidad);
+      if (this.$data.cantidad > 1){
+        console.log(idInputCantidad);
+      }
       const input = $("#" + idInputCantidad)[0];
       console.log(idInputCantidad);
       console.log(input.value);
@@ -72,7 +76,7 @@ export default {
       });
       input.value = 1;
     },
-  },
+  }
 };
 </script>
 
