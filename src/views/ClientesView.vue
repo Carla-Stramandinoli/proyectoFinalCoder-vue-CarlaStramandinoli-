@@ -48,16 +48,15 @@ export default {
     },
     //banana 1, manzana 2, uva 5, NUEVO banana 1
     agregarElemento(nuevoProducto) {
-      let itemNOexiste = true; 
+      let itemNoExiste = true; 
       this.itemDelCarrito.forEach((item) => {
-        console.log(item);
         if (item.name == nuevoProducto.name) {
           item.cantidad = parseInt(item.cantidad) + parseInt(nuevoProducto.cantidad);
           item.precio += nuevoProducto.precio;
-          itemNOexiste = false;
+          itemNoExiste = false;
         } 
       })
-      if(itemNOexiste){
+      if(itemNoExiste){
         this.itemDelCarrito.push(nuevoProducto);
       }
       this.$toastr.s("Producto agregado al carrito");
