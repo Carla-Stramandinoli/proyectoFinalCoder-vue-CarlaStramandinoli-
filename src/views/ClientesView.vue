@@ -46,7 +46,6 @@ export default {
         thisComponenet.element = response.data;
       })
     },
-    //banana 1, manzana 2, uva 5, NUEVO banana 1
     agregarElemento(nuevoProducto) {
       let itemNoExiste = true; 
       this.itemDelCarrito.forEach((item) => {

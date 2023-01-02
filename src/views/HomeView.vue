@@ -44,7 +44,6 @@ import ModalRegFormulario from "@/components/ModalRegFormulario.vue";
 import FormAdmin from '@/components/FormAdmin.vue';
 import LoguearUsuario from '@/components/LoguearUsuario.vue';
 
-
 export default {
   name: 'HomeView',
   components: {
@@ -72,7 +71,7 @@ export default {
       this.$router.push('/' + data.view)
     },
   }
-};
+}
 </script>
 
 <style>

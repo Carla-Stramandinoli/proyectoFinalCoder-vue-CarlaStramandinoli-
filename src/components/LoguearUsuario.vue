@@ -14,7 +14,7 @@
                   <input v-model="email" type="email" class="form-control" id="exampleInputEmail1"
                     aria-describedby="emailHelp" />
                   <span>{{ errors[0] }}</span>
-                  <br />
+                  <br>
                 </ValidationProvider>
                 <!-- password -->
                 <label for="exampleInputPassword1" class="form-label">Contraseña:</label>
