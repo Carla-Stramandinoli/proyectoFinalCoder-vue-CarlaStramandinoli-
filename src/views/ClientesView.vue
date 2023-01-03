@@ -3,6 +3,7 @@
     <div>
       <carrito-compras @vaciarCarrito="confirmarVaciar($event)" :elements="itemDelCarrito" />
     </div>
+    <p>Bienvenido/a: {{ filter }}</p>
     <button @click="cargarElementos()" class="btn btn-outline-success m-2">Ver productos</button>
     <div class="col-12">
       <div class="card-clientes">
@@ -20,6 +21,8 @@
 import ProductItem from '@/components/ProductItem.vue'
 import CarritoCompras from '@/components/CarritoCompras.vue'
 import axios from 'axios';
+import {  mapGetters, mapActions } from 'vuex';
+
 
 
 export default {
@@ -34,34 +37,50 @@ export default {
       itemDelCarrito: [],
     }
   },
-  methods: {
-    cargarElementos() {
-      const response = axios({
-        method: "GET",
-        url: "https://639f79eb5eb8889197fd60c9.mockapi.io/productos/",
-      })
-      let thisComponenet = this;
-      response.then(function (response) {
-        console.log(response.data[0].imagen);
-        thisComponenet.element = response.data;
-      })
+  created() {
+    this.obtenerUsuariosApi();
+  },
+  computed: {
+    ...mapGetters('moduloClientes', ['getUsuActivo', 'getCli']),
+    filter() {
+      let list = this.getCli;
+      list.forEach(element => {
+        console.log(element);
+        console.log(this.getUsuActivo);
+        return this.getUsuActivo
+      });
+      return this.getUsuActivo;
     },
-    agregarElemento(nuevoProducto) {
-      let itemNoExiste = true; 
-      this.itemDelCarrito.forEach((item) => {
-        if (item.name == nuevoProducto.name) {
-          item.cantidad = parseInt(item.cantidad) + parseInt(nuevoProducto.cantidad);
-          item.precio += nuevoProducto.precio;
-          itemNoExiste = false;
-        } 
-      })
-      if(itemNoExiste){
-        this.itemDelCarrito.push(nuevoProducto);
+    methods: {
+      ...mapActions('moduloClientes', ['obtenerUsuariosApi']),
+      cargarElementos() {
+        const response = axios({
+          method: "GET",
+          url: "https://639f79eb5eb8889197fd60c9.mockapi.io/productos/",
+        })
+        let thisComponenet = this;
+        response.then(function (response) {
+          console.log(response.data[0].imagen);
+          thisComponenet.element = response.data;
+        })
+      },
+      agregarElemento(nuevoProducto) {
+        let itemNoExiste = true;
+        this.itemDelCarrito.forEach((item) => {
+          if (item.name == nuevoProducto.name) {
+            item.cantidad = parseInt(item.cantidad) + parseInt(nuevoProducto.cantidad);
+            item.precio += nuevoProducto.precio;
+            itemNoExiste = false;
+          }
+        })
+        if (itemNoExiste) {
+          this.itemDelCarrito.push(nuevoProducto);
+        }
+        this.$toastr.s("Producto agregado al carrito");
+      },
+      confirmarVaciar() {
+        this.itemDelCarrito = [];
       }
-      this.$toastr.s("Producto agregado al carrito");
-    },
-    confirmarVaciar() {
-      this.itemDelCarrito = [];
     }
   }
 }

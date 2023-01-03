@@ -60,6 +60,8 @@ import { ValidationProvider, ValidationObserver } from 'vee-validate';
 import { extend } from 'vee-validate';
 import { required, alpha, email, alpha_num } from 'vee-validate/dist/rules';
 import axios from 'axios';
+import { mapMutations } from 'vuex';
+
 
 extend('required', {
   ...required,
@@ -97,6 +99,7 @@ export default {
     }
   },
   methods: {
+    ...mapMutations('moduloClientes',['guardarNombreCliLog']),
     validarFormulario() {
       const newCliente = {
         name: this.newClienteName,
@@ -113,6 +116,7 @@ export default {
       let thisComponente = this;
       request.then(function (response) {
         console.log(response);
+        thisComponente.guardarNombreCliLog(newCliente.name);
         thisComponente.$emit("enviar", {response, view: thisComponente.titulo});
       })
     }

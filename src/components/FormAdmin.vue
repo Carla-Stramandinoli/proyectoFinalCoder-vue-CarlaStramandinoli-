@@ -129,7 +129,7 @@ export default {
                 empresa: this.newAdminEmpresa,
                 barrio: this.newAdminBarrio,
                 email: this.newAdminEmail,
-                pass: this.newAdminPass,
+                password: this.newAdminPass,
             }
             const URLPOST = "https://639f79eb5eb8889197fd60c9.mockapi.io/administrador";
             const request = axios({
