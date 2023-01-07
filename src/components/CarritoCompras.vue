@@ -46,6 +46,8 @@
 
 <script>
 import axios from 'axios';
+import { mapGetters } from 'vuex';
+
 
 export default {
   name: 'CarritoCompras',
@@ -58,8 +60,8 @@ export default {
       total: 0,
     }
   },
-
   methods: {
+    ...mapGetters('moduloClientes', ['getUsuActivo']),
     obtenerTotal() {
       let total = 0;
       this.$data.data.forEach(element => {
@@ -70,6 +72,7 @@ export default {
     finalizarCompra() {
       alert("Compra finalizada!")
       let body = {
+        emailCli: this.getUsuActivo(),
         precioFinal: this.obtenerTotal(),
         list_productos: this.$data.data,
       }

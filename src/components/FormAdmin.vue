@@ -78,6 +78,7 @@ import { ValidationProvider, ValidationObserver } from 'vee-validate';
 import { extend } from 'vee-validate';
 import { required, alpha, email, alpha_num, alpha_spaces } from 'vee-validate/dist/rules';
 import axios from 'axios';
+import { mapMutations } from 'vuex';
 
 extend('required', {
     ...required,
@@ -122,6 +123,7 @@ export default {
         }
     },
     methods: {
+        ...mapMutations('moduloClientes',['guardarUsuPost']),
         validarFormulario() {
             const newAdmin = {
                 name: this.newAdminName,
@@ -129,7 +131,7 @@ export default {
                 empresa: this.newAdminEmpresa,
                 barrio: this.newAdminBarrio,
                 email: this.newAdminEmail,
-                pass: this.newAdminPass,
+                password: this.newAdminPass,
             }
             const URLPOST = "https://639f79eb5eb8889197fd60c9.mockapi.io/administrador";
             const request = axios({
@@ -140,6 +142,7 @@ export default {
             let thisComponente = this;
             request.then(function (response) {
                 console.log(response);
+                thisComponente.guardarUsuPost(newAdmin.email);
                 thisComponente.$emit("enviar", { response, view: thisComponente.titulo });
             })
         }

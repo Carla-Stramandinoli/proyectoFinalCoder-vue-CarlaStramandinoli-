@@ -3,6 +3,10 @@
     <div>
       <carrito-compras @vaciarCarrito="confirmarVaciar($event)" :elements="itemDelCarrito" />
     </div>
+    <div>
+      <p>Bienvenido/a: {{ mostrarUsuActivo }}</p>
+      <button @click="desloguear()" class="btn btn-danger">Log-out</button>
+    </div>
     <button @click="cargarElementos()" class="btn btn-outline-success m-2">Ver productos</button>
     <div class="col-12">
       <div class="card-clientes">
@@ -20,7 +24,7 @@
 import ProductItem from '@/components/ProductItem.vue'
 import CarritoCompras from '@/components/CarritoCompras.vue'
 import axios from 'axios';
-
+import { mapGetters, mapActions, mapMutations } from 'vuex';
 
 export default {
   name: 'ClientesView',
@@ -34,7 +38,27 @@ export default {
       itemDelCarrito: [],
     }
   },
+  created() {
+    this.obtenerUsuariosApi();
+  },
+  computed: {
+    ...mapGetters('moduloClientes', ['getUsuActivo', 'getListaUsuCli']),
+    mostrarUsuActivo() {
+      let list = this.getListaUsuCli;
+      console.log(list);
+      list.forEach(element => {
+        console.log(element);
+        console.log(this.getUsuActivo);
+        if (element == this.getUsuActivo) {
+          return this.getUsuActivo;
+        }
+      });
+      return this.getUsuActivo;
+    },
+  },
   methods: {
+    ...mapActions('moduloClientes', ['obtenerUsuariosApi']),
+    ...mapMutations('moduloClientes', ['desloguearUsuario']),
     cargarElementos() {
       const response = axios({
         method: "GET",
@@ -47,21 +71,26 @@ export default {
       })
     },
     agregarElemento(nuevoProducto) {
-      let itemNoExiste = true; 
+      let itemNoExiste = true;
       this.itemDelCarrito.forEach((item) => {
         if (item.name == nuevoProducto.name) {
-          item.cantidad = parseInt(item.cantidad) + parseInt(nuevoProducto.cantidad);
+          item.cantidad = parseInt(item.cantidad)
+            + parseInt(nuevoProducto.cantidad);
           item.precio += nuevoProducto.precio;
           itemNoExiste = false;
-        } 
+        }
       })
-      if(itemNoExiste){
+      if (itemNoExiste) {
         this.itemDelCarrito.push(nuevoProducto);
       }
       this.$toastr.s("Producto agregado al carrito");
     },
     confirmarVaciar() {
       this.itemDelCarrito = [];
+    },
+    desloguear() {
+      this.desloguearUsuario();
+      this.$router.push('/');
     }
   }
 }
