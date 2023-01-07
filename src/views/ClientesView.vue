@@ -45,6 +45,7 @@ export default {
     ...mapGetters('moduloClientes', ['getUsuActivo', 'getListaUsuCli']),
     mostrarUsuActivo() {
       let list = this.getListaUsuCli;
+      console.log(list);
       list.forEach(element => {
         console.log(element);
         console.log(this.getUsuActivo);

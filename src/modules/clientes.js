@@ -7,7 +7,13 @@ export default {
     },
     getters: {
         getUsuActivo(state) {
-            return state.usuarioActivo;
+            let usuario = localStorage.getItem("usuario");
+            if (usuario != null && state.usuarioActivo == null) {
+                localStorage.setItem("usuario", usuario);
+                return usuario;
+            } else {
+                return state.usuarioActivo;
+            }
         },
         getListaUsuCli(state) {
             return state.listaUsuCli;
@@ -23,13 +29,15 @@ export default {
         cargarAdmin(state, usuariosApiAdmin) {
             state.listaAdmin = usuariosApiAdmin;
         },
-        guardarUsuActivo(state, usuarioActivo) {
-            state.usuarioActivo = usuarioActivo;
+        guardarUsuActivo(state, usuarioAc) {
+            localStorage.setItem("usuario", usuarioAc);
+            state.usuarioActivo = usuarioAc;
         },
-        guardarUsuPost(state, usuarioActivo){
+        guardarUsuPost(state, usuarioActivo) {
             state.usuarioActivo = usuarioActivo
         },
         desloguearUsuario(state) {
+            localStorage.setItem("usuario", null);
             state.usuarioActivo = null;
         }
     },
