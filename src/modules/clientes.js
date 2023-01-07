@@ -12,13 +12,6 @@ export default {
         getListaUsuCli(state) {
             return state.listaUsuCli;
         },
-        getCli(state) {
-            if (state.listaUsuCli !== undefined)
-                return state.listaUsuCli;
-            else{
-                return [];
-            }
-        },
         getListaAdmin(state) {
             return state.listaAdmin;
         }
@@ -27,20 +20,26 @@ export default {
         cargarUsuarios(state, usuariosApiCli) {
             state.listaUsuCli = usuariosApiCli;
         },
-        cargarAdmin(state, usuariosApiCli) {
-            state.listaUsuCli = usuariosApiCli;
+        cargarAdmin(state, usuariosApiAdmin) {
+            state.listaAdmin = usuariosApiAdmin;
         },
-        guardarNombreCliLog(state, usuarioActivo) {
+        guardarUsuActivo(state, usuarioActivo) {
             state.usuarioActivo = usuarioActivo;
+        },
+        guardarUsuPost(state, usuarioActivo){
+            state.usuarioActivo = usuarioActivo
+        },
+        desloguearUsuario(state) {
+            state.usuarioActivo = null;
         }
     },
     actions: {
         obtenerUsuariosApi: async function ({ commit }) {
             const datos = await fetch("https://639f79eb5eb8889197fd60c9.mockapi.io/usuario");
             const clientes = await datos.json();
-            console.log(clientes);
             const usuMapeados = clientes.map((usu) => {
                 return {
+                    name: usu.name,
                     email: usu.email,
                     password: usu.password
                 }
@@ -49,10 +48,10 @@ export default {
         },
         obtenerAdminApi: async function ({ commit }) {
             const datos = await fetch("https://639f79eb5eb8889197fd60c9.mockapi.io/administrador");
-            const clientes = await datos.json();
-            console.log(clientes);
-            const adminMapeados = clientes.map((usu) => {
+            const admin = await datos.json();
+            const adminMapeados = admin.map((usu) => {
                 return {
+                    name: usu.name,
                     email: usu.email,
                     password: usu.password
                 }

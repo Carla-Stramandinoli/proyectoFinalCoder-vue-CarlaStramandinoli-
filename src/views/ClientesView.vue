@@ -3,7 +3,10 @@
     <div>
       <carrito-compras @vaciarCarrito="confirmarVaciar($event)" :elements="itemDelCarrito" />
     </div>
-    <p>Bienvenido/a: {{ filter }}</p>
+    <div>
+      <p>Bienvenido/a: {{ mostrarUsuActivo }}</p>
+      <button @click="desloguear()" class="btn btn-danger">Log-out</button>
+    </div>
     <button @click="cargarElementos()" class="btn btn-outline-success m-2">Ver productos</button>
     <div class="col-12">
       <div class="card-clientes">
@@ -21,9 +24,7 @@
 import ProductItem from '@/components/ProductItem.vue'
 import CarritoCompras from '@/components/CarritoCompras.vue'
 import axios from 'axios';
-import {  mapGetters, mapActions } from 'vuex';
-
-
+import { mapGetters, mapActions, mapMutations } from 'vuex';
 
 export default {
   name: 'ClientesView',
@@ -41,46 +42,54 @@ export default {
     this.obtenerUsuariosApi();
   },
   computed: {
-    ...mapGetters('moduloClientes', ['getUsuActivo', 'getCli']),
-    filter() {
-      let list = this.getCli;
+    ...mapGetters('moduloClientes', ['getUsuActivo', 'getListaUsuCli']),
+    mostrarUsuActivo() {
+      let list = this.getListaUsuCli;
       list.forEach(element => {
         console.log(element);
         console.log(this.getUsuActivo);
-        return this.getUsuActivo
+        if (element == this.getUsuActivo) {
+          return this.getUsuActivo;
+        }
       });
       return this.getUsuActivo;
     },
-    methods: {
-      ...mapActions('moduloClientes', ['obtenerUsuariosApi']),
-      cargarElementos() {
-        const response = axios({
-          method: "GET",
-          url: "https://639f79eb5eb8889197fd60c9.mockapi.io/productos/",
-        })
-        let thisComponenet = this;
-        response.then(function (response) {
-          console.log(response.data[0].imagen);
-          thisComponenet.element = response.data;
-        })
-      },
-      agregarElemento(nuevoProducto) {
-        let itemNoExiste = true;
-        this.itemDelCarrito.forEach((item) => {
-          if (item.name == nuevoProducto.name) {
-            item.cantidad = parseInt(item.cantidad) + parseInt(nuevoProducto.cantidad);
-            item.precio += nuevoProducto.precio;
-            itemNoExiste = false;
-          }
-        })
-        if (itemNoExiste) {
-          this.itemDelCarrito.push(nuevoProducto);
+  },
+  methods: {
+    ...mapActions('moduloClientes', ['obtenerUsuariosApi']),
+    ...mapMutations('moduloClientes', ['desloguearUsuario']),
+    cargarElementos() {
+      const response = axios({
+        method: "GET",
+        url: "https://639f79eb5eb8889197fd60c9.mockapi.io/productos/",
+      })
+      let thisComponenet = this;
+      response.then(function (response) {
+        console.log(response.data[0].imagen);
+        thisComponenet.element = response.data;
+      })
+    },
+    agregarElemento(nuevoProducto) {
+      let itemNoExiste = true;
+      this.itemDelCarrito.forEach((item) => {
+        if (item.name == nuevoProducto.name) {
+          item.cantidad = parseInt(item.cantidad)
+            + parseInt(nuevoProducto.cantidad);
+          item.precio += nuevoProducto.precio;
+          itemNoExiste = false;
         }
-        this.$toastr.s("Producto agregado al carrito");
-      },
-      confirmarVaciar() {
-        this.itemDelCarrito = [];
+      })
+      if (itemNoExiste) {
+        this.itemDelCarrito.push(nuevoProducto);
       }
+      this.$toastr.s("Producto agregado al carrito");
+    },
+    confirmarVaciar() {
+      this.itemDelCarrito = [];
+    },
+    desloguear() {
+      this.desloguearUsuario();
+      this.$router.push('/');
     }
   }
 }

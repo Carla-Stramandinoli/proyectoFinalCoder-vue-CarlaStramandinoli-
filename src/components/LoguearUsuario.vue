@@ -33,7 +33,7 @@
 import { ValidationProvider, ValidationObserver } from 'vee-validate';
 import { extend } from 'vee-validate';
 import { required, email, alpha_num } from 'vee-validate/dist/rules';
-import { mapActions, mapGetters } from 'vuex';
+import { mapActions, mapGetters, mapMutations } from 'vuex';
 
 
 extend('required', {
@@ -72,25 +72,29 @@ export default {
   },
   methods: {
     ...mapActions('moduloClientes', ['obtenerUsuariosApi', 'obtenerAdminApi']),
- //modificar ingresos, si esta logueado o no, hacer log-out
+    ...mapMutations('moduloClientes', ['guardarUsuActivo']),
     validarFormulario() {
       let estaLogueado = false;
       let user = null;
-      this.getListaUsuCli.map((usu) => {
-        console.log(usu);
-        if (this.email == usu.email && this.password == usu.password) {
-          estaLogueado = true;
-        }
-      });
-      this.getListaAdmin.map((usu) => {
-        console.log(usu);
-        if (this.email == usu.email && this.password == usu.password) {
-          estaLogueado = true;
-        }
-      });
+      if (this.titulo == "cliente") {
+        this.getListaUsuCli.map((usu) => {
+          if (this.email == usu.email && this.password == usu.password) {
+            estaLogueado = true;
+            user = usu.name;
+          }
+        });
+      } else {
+        this.getListaAdmin.map((usu) => {
+          console.log(usu);
+          if (this.email == usu.email && this.password == usu.password) {
+            estaLogueado = true;
+            user = usu.name;
+          }
+        });
+      }
       if (estaLogueado) {
-        let thisComponente = this;
-        thisComponente.$emit("enviar", { user, view: thisComponente.titulo });
+        this.guardarUsuActivo(user);
+        this.$emit("enviar", { user, view: this.titulo });
       } else {
         this.$toastr.e("Contraseña/email invalido");
       }

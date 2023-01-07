@@ -99,7 +99,7 @@ export default {
     }
   },
   methods: {
-    ...mapMutations('moduloClientes',['guardarNombreCliLog']),
+    ...mapMutations('moduloClientes',['guardarUsuPost']),
     validarFormulario() {
       const newCliente = {
         name: this.newClienteName,
@@ -116,7 +116,7 @@ export default {
       let thisComponente = this;
       request.then(function (response) {
         console.log(response);
-        thisComponente.guardarNombreCliLog(newCliente.name);
+        thisComponente.guardarUsuPost(newCliente.name);
         thisComponente.$emit("enviar", {response, view: thisComponente.titulo});
       })
     }
