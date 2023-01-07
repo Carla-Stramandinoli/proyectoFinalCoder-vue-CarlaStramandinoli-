@@ -49,7 +49,7 @@
       </div>
       <div class="tab-pane fade" id="carrito-tab-pane" role="tabpanel" aria-labelledby="contact-tab" tabindex="0">
         <carrito-admin v-for="(elemento, index) of carritoE" :key="index" :lista="elemento.list_productos"
-          :numero-carrito="elemento.id">
+          :email-carrito="elemento.emailCli">
         </carrito-admin>
       </div>
       <div class="tab-pane fade" id="disabled-tab-pane" role="tabpanel" aria-labelledby="disabled-tab" tabindex="0">...

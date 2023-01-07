@@ -80,7 +80,7 @@ export default {
         this.getListaUsuCli.map((usu) => {
           if (this.email == usu.email && this.password == usu.password) {
             estaLogueado = true;
-            user = usu.name;
+            user = usu.email;
           }
         });
       } else {
@@ -88,7 +88,7 @@ export default {
           console.log(usu);
           if (this.email == usu.email && this.password == usu.password) {
             estaLogueado = true;
-            user = usu.name;
+            user = usu.email;
           }
         });
       }

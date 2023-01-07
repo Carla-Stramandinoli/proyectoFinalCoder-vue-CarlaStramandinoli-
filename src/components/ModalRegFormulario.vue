@@ -116,7 +116,7 @@ export default {
       let thisComponente = this;
       request.then(function (response) {
         console.log(response);
-        thisComponente.guardarUsuPost(newCliente.name);
+        thisComponente.guardarUsuPost(newCliente.email);
         thisComponente.$emit("enviar", {response, view: thisComponente.titulo});
       })
     }

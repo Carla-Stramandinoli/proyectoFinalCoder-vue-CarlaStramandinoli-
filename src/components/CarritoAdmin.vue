@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h3>Carrito {{ numeroCarrito }}</h3> 
+        <h3>Carrito {{ emailCarrito }}</h3> 
         <!-- vincular titulo con usuario -->
         <table class="table table-responsive table-bordered border-dark">
             <thead>
@@ -26,7 +26,7 @@ export default {
     name: 'CarritoAdmin',
     props: {
         lista: Array,
-        numeroCarrito: String
+        emailCarrito: String
     },
     data() {
         return {

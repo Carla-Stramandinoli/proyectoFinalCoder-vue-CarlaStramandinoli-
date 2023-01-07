@@ -39,7 +39,6 @@ export default {
             const clientes = await datos.json();
             const usuMapeados = clientes.map((usu) => {
                 return {
-                    name: usu.name,
                     email: usu.email,
                     password: usu.password
                 }
@@ -51,7 +50,6 @@ export default {
             const admin = await datos.json();
             const adminMapeados = admin.map((usu) => {
                 return {
-                    name: usu.name,
                     email: usu.email,
                     password: usu.password
                 }
