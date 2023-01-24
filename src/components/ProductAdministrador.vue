@@ -88,7 +88,7 @@ export default {
       }
       const request = axios({
         method: "PUT",
-        url: "https://639f79eb5eb8889197fd60c9.mockapi.io/" + idElemento,
+        url: "https://639f79eb5eb8889197fd60c9.mockapi.io/productos/" + idElemento,
         data: newDatosProduc,
       })
       let thisComponente = this;
@@ -103,7 +103,7 @@ export default {
     eliminarProducto(idElemento) {
       const request = axios({
         method: "DELETE",
-        url: "https://639f79eb5eb8889197fd60c9.mockapi.io/" + idElemento,
+        url: "https://639f79eb5eb8889197fd60c9.mockapi.io/productos/" + idElemento,
       })
       let thisComponente = this;
       request.then(function (response) {

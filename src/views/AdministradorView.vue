@@ -48,8 +48,8 @@
       <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">...
       </div>
       <div class="tab-pane fade" id="carrito-tab-pane" role="tabpanel" aria-labelledby="contact-tab" tabindex="0">
-        <carrito-admin v-for="(elemento, index) of carritoE" :key="index" :lista="elemento.list_productos"
-          :email-carrito="elemento.emailCli">
+        <carrito-admin @reloadCart="verCarritos()" v-for="(elemento, index) of carritoE" :key="index" :lista="elemento.list_productos"
+          :email-carrito="elemento.emailCli" :id-carrito="elemento.id" :date="elemento.createdAt">
         </carrito-admin>
       </div>
       <div class="tab-pane fade" id="disabled-tab-pane" role="tabpanel" aria-labelledby="disabled-tab" tabindex="0">...
@@ -115,10 +115,10 @@ export default {
         method: "GET",
         url: URLPOST,
       })
-      let ta = this;
+      let thisComponenet = this;
       response.then(function (response) {
         console.log(response.data);
-        ta.carritoE = response.data;
+        thisComponenet.carritoE = response.data;
       })
     },
     desloguear() {

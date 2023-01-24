@@ -52,8 +52,6 @@
         </ValidationObserver>
       </div>
     </div>
-    <div class="spinner">
-    </div>
   </div>
 
 </template>
@@ -125,7 +123,9 @@ export default {
         console.log(thisComponente.dibujarSpinner())
         // document.querySelector("input").disabled = true;
         document.querySelector(".form-control").append(thisComponente.dibujarSpinner());
-   
+        setTimeout(() => {
+          thisComponente.$emit("enviar", { response, view: thisComponente.titulo });
+        }, 1000);
       })
     }
   }
