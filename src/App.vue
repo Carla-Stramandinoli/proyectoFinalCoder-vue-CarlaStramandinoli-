@@ -1,8 +1,8 @@
 <template>
   <div id="app">
     <nav class="encabezado">
-      <h2>Naguikki-ya</h2>
-      <router-link to="/">Home</router-link>
+`      <h2>Naguikki-ya</h2>
+`      <router-link to="/">Home</router-link>
     </nav>
     <div class="container">
       <router-view/>

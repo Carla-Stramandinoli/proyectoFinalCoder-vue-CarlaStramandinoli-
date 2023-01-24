@@ -52,7 +52,10 @@
         </ValidationObserver>
       </div>
     </div>
+    <div class="spinner">
+    </div>
   </div>
+
 </template>
 
 <script>
@@ -60,7 +63,7 @@ import { ValidationProvider, ValidationObserver } from 'vee-validate';
 import { extend } from 'vee-validate';
 import { required, alpha, email, alpha_num } from 'vee-validate/dist/rules';
 import axios from 'axios';
-import { mapMutations } from 'vuex';
+import { mapActions, mapMutations } from 'vuex';
 
 
 extend('required', {
@@ -99,7 +102,8 @@ export default {
     }
   },
   methods: {
-    ...mapMutations('moduloClientes',['guardarUsuPost']),
+    ...mapMutations('moduloClientes', ['guardarUsuPost']),
+    ...mapActions('moduloClientes', ['dibujarSpinner']),
     validarFormulario() {
       const newCliente = {
         name: this.newClienteName,
@@ -117,7 +121,11 @@ export default {
       request.then(function (response) {
         console.log(response);
         thisComponente.guardarUsuPost(newCliente.email);
-        thisComponente.$emit("enviar", {response, view: thisComponente.titulo});
+        thisComponente.dibujarSpinner();
+        console.log(thisComponente.dibujarSpinner())
+        // document.querySelector("input").disabled = true;
+        document.querySelector(".form-control").append(thisComponente.dibujarSpinner());
+   
       })
     }
   }

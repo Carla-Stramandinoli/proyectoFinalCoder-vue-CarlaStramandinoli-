@@ -102,7 +102,7 @@ export default {
     cargarElementos() {
       const response = axios({
         method: "GET",
-        url: "https://639f79eb5eb8889197fd60c9.mockapi.io/productos/",
+        url: "https://639f79eb5eb8889197fd60c9.mockapi.io/productos",
       })
       let thisComponenet = this;
       response.then(function (response) {

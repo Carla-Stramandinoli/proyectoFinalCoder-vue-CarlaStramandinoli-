@@ -78,7 +78,7 @@ import { ValidationProvider, ValidationObserver } from 'vee-validate';
 import { extend } from 'vee-validate';
 import { required, alpha, email, alpha_num, alpha_spaces } from 'vee-validate/dist/rules';
 import axios from 'axios';
-import { mapMutations } from 'vuex';
+import { mapMutations, mapActions } from 'vuex';
 
 extend('required', {
     ...required,
@@ -123,7 +123,8 @@ export default {
         }
     },
     methods: {
-        ...mapMutations('moduloClientes',['guardarUsuPost']),
+        ...mapMutations('moduloClientes', ['guardarUsuPost']),
+        ...mapActions('moduloClientes', ['dibujarSpinner']),
         validarFormulario() {
             const newAdmin = {
                 name: this.newAdminName,
@@ -143,7 +144,12 @@ export default {
             request.then(function (response) {
                 console.log(response);
                 thisComponente.guardarUsuPost(newAdmin.email);
-                thisComponente.$emit("enviar", { response, view: thisComponente.titulo });
+                console.log(thisComponente.dibujarSpinner())
+                // document.querySelector("input").disabled = true;
+                document.querySelector(".form-control").append(thisComponente.dibujarSpinner());
+                setTimeout(() => {
+                    thisComponente.$emit("enviar", { response, view: thisComponente.titulo });
+                }, 1000);
             })
         }
     }
