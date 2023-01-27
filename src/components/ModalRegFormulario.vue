@@ -61,7 +61,7 @@ import { ValidationProvider, ValidationObserver } from 'vee-validate';
 import { extend } from 'vee-validate';
 import { required, alpha, email, alpha_num } from 'vee-validate/dist/rules';
 import axios from 'axios';
-import { mapActions, mapMutations } from 'vuex';
+import { mapGetters, mapMutations } from 'vuex';
 
 
 extend('required', {
@@ -101,7 +101,7 @@ export default {
   },
   methods: {
     ...mapMutations('moduloClientes', ['guardarUsuPost']),
-    ...mapActions('moduloClientes', ['dibujarSpinner']),
+    ...mapGetters('moduloClientes', ['dibujarSpinner']),
     validarFormulario() {
       const newCliente = {
         name: this.newClienteName,
@@ -117,11 +117,8 @@ export default {
       })
       let thisComponente = this;
       request.then(function (response) {
-        console.log(response);
         thisComponente.guardarUsuPost(newCliente.email);
         thisComponente.dibujarSpinner();
-        console.log(thisComponente.dibujarSpinner())
-        // document.querySelector("input").disabled = true;
         document.querySelector(".form-control").append(thisComponente.dibujarSpinner());
         setTimeout(() => {
           thisComponente.$emit("enviar", { response, view: thisComponente.titulo });

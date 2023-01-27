@@ -6,6 +6,16 @@ export default {
         listaAdmin: []
     },
     getters: {
+        dibujarSpinner(state)   {
+            state;
+            let divSpinner = document.createElement("div");
+                divSpinner.className = "text-center text-success";
+                divSpinner.innerHTML = `<p>Un momento por favor..</p>
+                <div class="spinner-border text-warning" role="status">
+                <span class="visually-hidden">Loading...</span>
+                </div>`
+            return  divSpinner;
+        },
         getUsuActivo(state) {
             let usuario = localStorage.getItem("usuario");
             if (usuario != null && state.usuarioActivo == null) {
@@ -63,15 +73,6 @@ export default {
                 }
             });
             commit('cargarAdmin', adminMapeados)
-        },
-        dibujarSpinner() {
-            let divSpinner = document.createElement("div");
-            divSpinner.className = "text-center";
-            divSpinner.innerHTML = ` <h5>Un momento por favor..</h5>
-        <div class="spinner-border text-warning" role="status">
-        <span class="visually-hidden">Loading...</span>
-        </div>`
-        return divSpinner;
         }
     }
 }

@@ -47,8 +47,6 @@ export default {
       let list = this.getListaUsuCli;
       console.log(list);
       list.forEach(element => {
-        console.log(element);
-        console.log(this.getUsuActivo);
         if (element == this.getUsuActivo) {
           return this.getUsuActivo;
         }

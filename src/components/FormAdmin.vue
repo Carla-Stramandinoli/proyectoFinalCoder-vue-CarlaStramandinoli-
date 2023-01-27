@@ -7,7 +7,7 @@
                 </div>
                 <ValidationObserver v-slot="{ handleSubmit }">
                     <div class="modal-body" id="modal-body">
-                        <form role="form" class="form-control" @subtmit.prevent="newCliente()"
+                        <form role="form" class="form-control formAdmin" @subtmit.prevent="newCliente()"
                             @submit.prevent="handleSubmit(validarFormulario)" id="formulario">
                             <!-- nombre -->
                             <ValidationProvider name="nombre" rules="alpha|required" v-slot="{ errors }">
@@ -78,7 +78,7 @@ import { ValidationProvider, ValidationObserver } from 'vee-validate';
 import { extend } from 'vee-validate';
 import { required, alpha, email, alpha_num, alpha_spaces } from 'vee-validate/dist/rules';
 import axios from 'axios';
-import { mapMutations, mapActions } from 'vuex';
+import { mapMutations, mapGetters } from 'vuex';
 
 extend('required', {
     ...required,
@@ -124,7 +124,7 @@ export default {
     },
     methods: {
         ...mapMutations('moduloClientes', ['guardarUsuPost']),
-        ...mapActions('moduloClientes', ['dibujarSpinner']),
+        ...mapGetters('moduloClientes', ['dibujarSpinner']),
         validarFormulario() {
             const newAdmin = {
                 name: this.newAdminName,
@@ -142,11 +142,8 @@ export default {
             })
             let thisComponente = this;
             request.then(function (response) {
-                console.log(response);
                 thisComponente.guardarUsuPost(newAdmin.email);
-                console.log(thisComponente.dibujarSpinner())
-                // document.querySelector("input").disabled = true;
-                document.querySelector("#formulario").append(thisComponente.dibujarSpinner());
+                document.querySelector(".formAdmin").append(thisComponente.dibujarSpinner());
                 setTimeout(() => {
                     thisComponente.$emit("enviar", { response, view: thisComponente.titulo });
                 }, 1000);
