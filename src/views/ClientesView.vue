@@ -13,7 +13,7 @@
         <div class="row m-2 d-flex justify-content-between">
           <product-item @agregalo_carrito="agregarElemento($event)" v-for="(elemento, index) of element" :key="index"
             :id="(elemento.nClave + index)" :nombre="elemento.name" :nClave="elemento.nClave" :img="elemento.img"
-            :description="elemento.description" :price="elemento.precio" :quantity="elemento.cantidad"></product-item>
+            :description="elemento.descripcion" :price="elemento.precio" :quantity="elemento.cantidad"></product-item>
         </div>
       </div>
     </div>

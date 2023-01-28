@@ -1,10 +1,10 @@
 <template>
     <div>
-    <div class="d-flex justify-content-center">
-        <h5><strong>Carrito:</strong>{{ emailCarrito }}</h5> 
-        |
-        <h5><strong>Fecha de creacion:</strong>{{ dateFormat }}</h5>
-    </div>
+        <div class="d-flex justify-content-center">
+            <h5><strong>Carrito:</strong>{{ emailCarrito }}</h5>
+            |
+            <h5><strong>Fecha de creacion:</strong>{{ dateFormat }}</h5>
+        </div>
         <table class="table table-responsive table-bordered border-dark">
             <thead>
                 <tr>
@@ -26,6 +26,11 @@
                     <td></td>
                 </tr>
             </tbody>
+            <tfoot>
+                <tr>
+                    <th colspan="4" class="text-primary">Barrio: {{ $props.zona }}</th>
+                </tr>
+            </tfoot>
         </table>
     </div>
 </template>
@@ -37,8 +42,9 @@ export default {
     props: {
         lista: Array,
         emailCarrito: String,
-        idCarrito: Number,
-        date: Date
+        idCarrito: String,
+        date: Number,
+        zona: String
     },
     data() {
         return {
@@ -57,15 +63,19 @@ export default {
                 method: "DELETE",
                 url: "https://639f79eb5eb8889197fd60c9.mockapi.io/carrito/" + idElemento,
             });
-            let thisComponente = this;
-            request.then(function (response) {
-                console.log(response);
-                thisComponente.$emit("reloadCart");
-            });
+            if (confirm("Estas seguro que deseas eliminar este pedido?")) {
+                let thisComponente = this;
+                request.then(function (response) {
+                    console.log(response);
+                    thisComponente.$emit("reloadCart");
+                })
+            }
         },
-    },
-};
+    }
+}
 </script>
 <style scoped>
-
+th {
+    width: 10%;
+}
 </style>

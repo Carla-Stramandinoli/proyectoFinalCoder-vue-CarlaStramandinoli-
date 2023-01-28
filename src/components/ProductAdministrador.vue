@@ -45,7 +45,8 @@
               </div>
               <div class="modal-footer btn-group">
                 <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
-                <button @click="editarProducto(id,idHtml)" type="button" class="btn btn-outline-dark">Guardar cambios</button>
+                <button @click="editarProducto(id, idHtml)" type="button" class="btn btn-outline-dark">Guardar
+                  cambios</button>
               </div>
             </div>
           </div>
@@ -80,7 +81,7 @@ export default {
     }
   },
   methods: {
-    editarProducto(idElemento,idHtml) {
+    editarProducto(idElemento, idHtml) {
       const newDatosProduc = {
         name: this.newName,
         precio: this.newPrecio,
@@ -94,22 +95,25 @@ export default {
       let thisComponente = this;
       request.then(function (response) {
         console.log(response);
-        $('#'+idHtml).modal('hide');
+        $('#' + idHtml).modal('hide');
         $('body').removeClass('modal-open');
         $('.modal-backdrop').remove();
         thisComponente.$emit("reloadNewItem")
       })
+      this.$toastr.s("El producto fue editado");
     },
     eliminarProducto(idElemento) {
       const request = axios({
         method: "DELETE",
         url: "https://639f79eb5eb8889197fd60c9.mockapi.io/productos/" + idElemento,
       })
-      let thisComponente = this;
-      request.then(function (response) {
-        console.log(response);
-        thisComponente.$emit("reloadNewItem")
-      })
+      if (confirm("Estas seguro que deseas eliminar este producto?")) {
+        let thisComponente = this;
+        request.then(function (response) {
+          console.log(response);
+          thisComponente.$emit("reloadNewItem")
+        })
+      }
     }
   }
 };

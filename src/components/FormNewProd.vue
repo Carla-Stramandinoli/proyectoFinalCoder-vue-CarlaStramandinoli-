@@ -14,6 +14,10 @@
                 <input v-model="newProdDescripcion" type="text" class="form-control">
             </div>
             <div class="mb-3">
+                <label class="form-check-label" for="exampleCheck1">Link de la imagen:</label>
+                <input v-model="newProdImg" type="text" class="form-control">
+            </div>
+            <div class="mb-3">
                 <label class="form-check-label" for="exampleCheck1">Cantidad inicial:</label>
                 <input v-model="newProdCantidad" type="number" class="form-control" placeholder="Ingresar 1">
             </div>
@@ -33,6 +37,7 @@ export default {
             newProdNombre: '',
             newProdPrecio: '',
             newProdDescripcion: '',
+            newProdImg: '',
             newProdCantidad: ''
         }
     },
@@ -42,6 +47,7 @@ export default {
                 name: this.newProdNombre,
                 precio: this.newProdPrecio,
                 description: this.newProdDescripcion,
+                img: this.newProdImg,
                 cantidad: this.newProdCantidad
             }
             const URLPOST = "https://639f79eb5eb8889197fd60c9.mockapi.io/productos";
@@ -57,6 +63,7 @@ export default {
                 $("#offcanvasRight").offcanvas('hide');
                 thisComponente.$emit("reloadNewItem")
             })
+            this.$toastr.s("Producto agregado correctamente");
         }
     }
 };

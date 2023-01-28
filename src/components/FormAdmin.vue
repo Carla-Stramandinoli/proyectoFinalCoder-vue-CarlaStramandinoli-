@@ -14,7 +14,7 @@
                                 <label for="exampleInputName" class="form-label">Nombre:</label>
                                 <input v-model="newAdminName" type="text" class="form-control" placeholder="Pepe"
                                     id="exampleInputName">
-                                <span>{{ errors[0] }}</span>
+                                <span class="text-danger">{{ errors[0] }}</span>
                                 <br>
                             </ValidationProvider>
                             <!-- apellido -->
@@ -22,7 +22,7 @@
                                 <label for="exampleInputLastName" class="form-label">Apellido:</label>
                                 <input v-model="newAdminLastName" type="text" class="form-control" placeholder="Lopez"
                                     id="exampleInputLastName">
-                                <span>{{ errors[0] }}</span>
+                                <span class="text-danger">{{ errors[0] }}</span>
                                 <br>
                             </ValidationProvider>
                             <!-- nombreEmpresa -->
@@ -30,7 +30,7 @@
                                 <label for="exampleInputEmpresa" class="form-label">Empresa:</label>
                                 <input v-model="newAdminEmpresa" type="text" class="form-control"
                                     placeholder="Deli Munchies" id="exampleInputEmpresa">
-                                <span>{{ errors[0] }}</span>
+                                <span class="text-danger">{{ errors[0] }}</span>
                                 <br>
                             </ValidationProvider>
                             <!-- barrio -->
@@ -38,7 +38,7 @@
                                 <label for="exampleInputBarrio" class="form-label">Barrio:</label>
                                 <input v-model="newAdminBarrio" type="text" class="form-control"
                                     placeholder="Ramos Mejia" id="exampleInputBarrio">
-                                <span>{{ errors[0] }}</span>
+                                <span class="text-danger">{{ errors[0] }}</span>
                                 <br>
                             </ValidationProvider>
                             <!-- email -->
@@ -47,7 +47,7 @@
                                 <input v-model="newAdminEmail" type="email" class="form-control"
                                     placeholder="pepeLopez@hola.com" id="exampleInputEmail1"
                                     aria-describedby="emailHelp">
-                                <span>{{ errors[0] }}</span>
+                                <span class="text-danger">{{ errors[0] }}</span>
                                 <br>
                             </ValidationProvider>
                             <!-- password -->
@@ -55,7 +55,7 @@
                                 <label for="exampleInputPassword1" class="form-label">Contraseña:</label>
                                 <input v-model="newAdminPass" type="password" class="form-control"
                                     placeholder="Debe contener letras y numeros" id="exampleInputPassword1">
-                                <span>{{ errors[0] }}</span>
+                                <span class="text-danger">{{ errors[0] }}</span>
                                 <br>
                             </ValidationProvider>
                             <div class="modal-footer">

@@ -21,9 +21,6 @@
               <label for="exampleInputPassword1" class="form-label">Contraseña:</label>
               <input v-model="password" type="password" class="form-control" id="exampleInputPassword1" />
               <br>
-              <div class="invalid-feedback">
-                You must agree before submitting.
-              </div>
               <button @submit.prevent="validarFormulario()" type="submit" class="btn btn-success">Ingresar</button>
             </form>
           </div>

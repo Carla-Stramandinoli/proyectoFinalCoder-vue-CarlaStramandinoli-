@@ -40,7 +40,7 @@
           <div class="col-12 m-2 d-flex row ">
             <product-administrador @reloadNewItem="cargarElementos()" v-for="(elemento, index) of element" :key="index"
               :idHtml="(elemento.nClave + index)" :id="elemento.id" :nombre="elemento.name" :nClave="elemento.nClave"
-              :img="elemento.img" :description="elemento.description" :price="elemento.precio"
+              :img="elemento.img" :description="elemento.descripcion" :price="elemento.precio"
               :quantity="elemento.cantidad"></product-administrador>
           </div>
         </div>
@@ -49,7 +49,7 @@
       </div>
       <div class="tab-pane fade" id="carrito-tab-pane" role="tabpanel" aria-labelledby="contact-tab" tabindex="0">
         <carrito-admin @reloadCart="verCarritos()" v-for="(elemento, index) of carritoE" :key="index" :lista="elemento.list_productos"
-          :email-carrito="elemento.emailCli" :id-carrito="elemento.id" :date="elemento.createdAt">
+          :email-carrito="elemento.emailCli" :id-carrito="elemento.id" :date="elemento.createdAt" :zona="elemento.barrio">
         </carrito-admin>
       </div>
       <div class="tab-pane fade" id="disabled-tab-pane" role="tabpanel" aria-labelledby="disabled-tab" tabindex="0">...

@@ -14,7 +14,7 @@
                 <label for="exampleInputName" class="form-label">Nombre:</label>
                 <input v-model="newClienteName" type="text" class="form-control" placeholder="Pepe"
                   id="exampleInputName">
-                <span>{{ errors[0] }}</span>
+                <span class="text-danger">{{ errors[0] }}</span>
                 <br>
               </ValidationProvider>
               <!-- apellido -->
@@ -22,7 +22,7 @@
                 <label for="exampleInputLastName" class="form-label">Apellido:</label>
                 <input v-model="newClienteLastName" type="text" class="form-control" placeholder="Lopez"
                   id="exampleInputLastName">
-                <span>{{ errors[0] }}</span>
+                <span class="text-danger">{{ errors[0] }}</span>
                 <br>
               </ValidationProvider>
               <!-- email -->
@@ -34,11 +34,11 @@
                 <br>
               </ValidationProvider>
               <!-- password -->
-              <ValidationProvider name="password" rules="alpha_num|required" v-slot="{ errors }">
+              <ValidationProvider name="password" rules="alpha_num|min:6|required" v-slot="{ errors }">
                 <label for="exampleInputPassword1" class="form-label">Contraseña:</label>
                 <input v-model="newClientePass" type="password" class="form-control"
-                  placeholder="Debe contener letras y numeros" id="exampleInputPassword1">
-                <span>{{ errors[0] }}</span>
+                  placeholder="Debe contener al menos 6 caracteres" id="exampleInputPassword1">
+                <span class="text-danger">{{ errors[0] }}</span>
                 <br>
               </ValidationProvider>
               <div class="modal-footer">
@@ -59,7 +59,7 @@
 <script>
 import { ValidationProvider, ValidationObserver } from 'vee-validate';
 import { extend } from 'vee-validate';
-import { required, alpha, email, alpha_num } from 'vee-validate/dist/rules';
+import { required, alpha, email, alpha_num, min } from 'vee-validate/dist/rules';
 import axios from 'axios';
 import { mapGetters, mapMutations } from 'vuex';
 
@@ -79,6 +79,11 @@ extend('email', email);
 extend('alpha_num', {
   ...alpha_num,
   message: 'El campo {_field_} debe contener letras y numeros.'
+});
+
+extend('min', {
+  ...min,
+  message: 'El campo {_field_} debe contener al menos 6 caracteres.'
 });
 
 export default {

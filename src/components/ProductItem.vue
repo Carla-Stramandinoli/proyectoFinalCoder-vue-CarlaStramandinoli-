@@ -24,7 +24,7 @@
           </div>
         </div>
       </div>
-      <br />
+      <br>
       <div class="d-flex justify-content-center">
         <button @click="addAlCarrito(nClave)" class="btn btn-success">
           Agregar producto
@@ -58,7 +58,6 @@ export default {
   },
   methods: {
     addAlCarrito(idInputCantidad) {
-      console.log("Este " + this.$data.cantidad);
       if (this.$data.cantidad > 1){
         console.log(idInputCantidad);
       }
