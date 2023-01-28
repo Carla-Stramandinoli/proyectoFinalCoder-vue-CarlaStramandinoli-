@@ -1,9 +1,10 @@
 <template>
   <div>
-    <div>
-      <p>Bienvenido/a: {{ mostrarUsuActivo }}</p>
-      <button @click="desloguear()" class="btn btn-danger">Log-out</button>
+    <div class="d-flex justify-content-center m-2">
+      <p class="bienvenida">Bienvenido/a: {{ mostrarUsuActivo }}</p>
+      <button @click="desloguear()" class="btn btn-danger btn-sm logout">Log-out</button>
     </div>
+    <div>{{ cargarElementos() }}</div>
     <div class="btn-group m-2">
       <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
         <div class="offcanvas-header">
@@ -18,12 +19,6 @@
         <li>
           <button class="btn btn-outline-success" type="button" data-bs-toggle="offcanvas"
             data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">Agregar producto</button>
-        </li>
-        <li class="nav-item" role="presentation">
-          <button class="btn btn-outline-success" @click="cargarElementos()" id="home-tab" data-bs-toggle="tab"
-            data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">
-            Ver productos
-          </button>
         </li>
         <li class="nav-item" role="presentation">
           <button class="btn btn-outline-success" @click="verCarritos()" id="contact-tab" data-bs-toggle="tab"
@@ -48,8 +43,9 @@
       <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">...
       </div>
       <div class="tab-pane fade" id="carrito-tab-pane" role="tabpanel" aria-labelledby="contact-tab" tabindex="0">
-        <carrito-admin @reloadCart="verCarritos()" v-for="(elemento, index) of carritoE" :key="index" :lista="elemento.list_productos"
-          :email-carrito="elemento.emailCli" :id-carrito="elemento.id" :date="elemento.createdAt" :zona="elemento.barrio">
+        <carrito-admin @reloadCart="verCarritos()" v-for="(elemento, index) of carritoE" :key="index"
+          :lista="elemento.list_productos" :email-carrito="elemento.emailCli" :id-carrito="elemento.id"
+          :date="elemento.createdAt" :zona="elemento.barrio">
         </carrito-admin>
       </div>
       <div class="tab-pane fade" id="disabled-tab-pane" role="tabpanel" aria-labelledby="disabled-tab" tabindex="0">...
@@ -81,6 +77,7 @@ export default {
   },
   created() {
     this.obtenerAdminApi();
+    this.cargarElementos();
   },
   computed: {
     ...mapGetters('moduloClientes', ['getUsuActivo', 'getListaAdmin']),
@@ -126,3 +123,12 @@ export default {
   }
 }
 </script>
+
+ <style scoped>
+ .bienvenida{
+  margin-top: 1%;
+ }
+.logout {
+  margin-left: 1%;
+}
+</style>

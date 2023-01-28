@@ -30,7 +30,7 @@ export default {
         },
         getListaAdmin(state) {
             return state.listaAdmin;
-        }
+        },
     },
     mutations: {
         cargarUsuarios(state, usuariosApiCli) {

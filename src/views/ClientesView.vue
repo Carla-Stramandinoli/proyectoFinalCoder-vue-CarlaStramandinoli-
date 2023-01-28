@@ -3,11 +3,11 @@
     <div>
       <carrito-compras @vaciar="vaciar($event)" :elements="itemDelCarrito" />
     </div>
-    <div>
-      <p>Bienvenido/a: {{ mostrarUsuActivo }}</p>
-      <button @click="desloguear()" class="btn btn-danger">Log-out</button>
+    <div class="d-flex justify-content-center m-2">
+      <p class="bienvenida">Bienvenido/a: {{ mostrarUsuActivo }}</p>
+      <button @click="desloguear()" class="btn btn-danger btn-sm logout">Log-out</button>
     </div>
-    <button @click="cargarElementos()" class="btn btn-outline-success m-2">Ver productos</button>
+    <div>{{ cargarElementos() }}</div>
     <div class="col-12">
       <div class="card-clientes">
         <div class="row m-2 d-flex justify-content-between">
@@ -40,6 +40,7 @@ export default {
   },
   created() {
     this.obtenerUsuariosApi();
+    this.cargarElementos();
   },
   computed: {
     ...mapGetters('moduloClientes', ['getUsuActivo', 'getListaUsuCli']),
@@ -100,4 +101,11 @@ export default {
   border-radius: 2%;
   margin-top: 1%;
 }
+ .bienvenida{
+  margin-top: 1%;
+ }
+.logout {
+  margin-left: 1%;
+}
+
 </style>
