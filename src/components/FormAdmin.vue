@@ -3,18 +3,18 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Registrarse:</h5>
+                    <h5 class="modal-title text-success">Registrarse:</h5>
                 </div>
                 <ValidationObserver v-slot="{ handleSubmit }">
                     <div class="modal-body" id="modal-body">
-                        <form role="form" class="form-control" @subtmit.prevent="newCliente()"
+                        <form role="form" class="form-control formAdmin" @subtmit.prevent="newCliente()"
                             @submit.prevent="handleSubmit(validarFormulario)" id="formulario">
                             <!-- nombre -->
                             <ValidationProvider name="nombre" rules="alpha|required" v-slot="{ errors }">
                                 <label for="exampleInputName" class="form-label">Nombre:</label>
                                 <input v-model="newAdminName" type="text" class="form-control" placeholder="Pepe"
                                     id="exampleInputName">
-                                <span>{{ errors[0] }}</span>
+                                <span class="text-danger">{{ errors[0] }}</span>
                                 <br>
                             </ValidationProvider>
                             <!-- apellido -->
@@ -22,7 +22,7 @@
                                 <label for="exampleInputLastName" class="form-label">Apellido:</label>
                                 <input v-model="newAdminLastName" type="text" class="form-control" placeholder="Lopez"
                                     id="exampleInputLastName">
-                                <span>{{ errors[0] }}</span>
+                                <span class="text-danger">{{ errors[0] }}</span>
                                 <br>
                             </ValidationProvider>
                             <!-- nombreEmpresa -->
@@ -30,7 +30,7 @@
                                 <label for="exampleInputEmpresa" class="form-label">Empresa:</label>
                                 <input v-model="newAdminEmpresa" type="text" class="form-control"
                                     placeholder="Deli Munchies" id="exampleInputEmpresa">
-                                <span>{{ errors[0] }}</span>
+                                <span class="text-danger">{{ errors[0] }}</span>
                                 <br>
                             </ValidationProvider>
                             <!-- barrio -->
@@ -38,7 +38,7 @@
                                 <label for="exampleInputBarrio" class="form-label">Barrio:</label>
                                 <input v-model="newAdminBarrio" type="text" class="form-control"
                                     placeholder="Ramos Mejia" id="exampleInputBarrio">
-                                <span>{{ errors[0] }}</span>
+                                <span class="text-danger">{{ errors[0] }}</span>
                                 <br>
                             </ValidationProvider>
                             <!-- email -->
@@ -47,7 +47,7 @@
                                 <input v-model="newAdminEmail" type="email" class="form-control"
                                     placeholder="pepeLopez@hola.com" id="exampleInputEmail1"
                                     aria-describedby="emailHelp">
-                                <span>{{ errors[0] }}</span>
+                                <span class="text-danger">{{ errors[0] }}</span>
                                 <br>
                             </ValidationProvider>
                             <!-- password -->
@@ -55,7 +55,7 @@
                                 <label for="exampleInputPassword1" class="form-label">Contraseña:</label>
                                 <input v-model="newAdminPass" type="password" class="form-control"
                                     placeholder="Debe contener letras y numeros" id="exampleInputPassword1">
-                                <span>{{ errors[0] }}</span>
+                                <span class="text-danger">{{ errors[0] }}</span>
                                 <br>
                             </ValidationProvider>
                             <div class="modal-footer">
@@ -78,6 +78,7 @@ import { ValidationProvider, ValidationObserver } from 'vee-validate';
 import { extend } from 'vee-validate';
 import { required, alpha, email, alpha_num, alpha_spaces } from 'vee-validate/dist/rules';
 import axios from 'axios';
+import { mapMutations, mapGetters } from 'vuex';
 
 extend('required', {
     ...required,
@@ -122,6 +123,9 @@ export default {
         }
     },
     methods: {
+        ...mapMutations('moduloClientes', ['guardarUsuPost']),
+        ...mapGetters('moduloClientes', ['dibujarSpinner']),
+        // Post a la api
         validarFormulario() {
             const newAdmin = {
                 name: this.newAdminName,
@@ -129,7 +133,7 @@ export default {
                 empresa: this.newAdminEmpresa,
                 barrio: this.newAdminBarrio,
                 email: this.newAdminEmail,
-                pass: this.newAdminPass,
+                password: this.newAdminPass,
             }
             const URLPOST = "https://639f79eb5eb8889197fd60c9.mockapi.io/administrador";
             const request = axios({
@@ -139,8 +143,11 @@ export default {
             })
             let thisComponente = this;
             request.then(function (response) {
-                console.log(response);
-                thisComponente.$emit("enviar", { response, view: thisComponente.titulo });
+                thisComponente.guardarUsuPost(newAdmin.email);
+                document.querySelector(".formAdmin").append(thisComponente.dibujarSpinner());
+                setTimeout(() => {
+                    thisComponente.$emit("enviar", { response, view: thisComponente.titulo });
+                }, 1000);
             })
         }
     }
