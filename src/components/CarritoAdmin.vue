@@ -12,8 +12,8 @@
                     <th scope="col">Cantidad</th>
                     <th scope="col">Precio</th>
                     <th>
-                        <button type="button" @click="borrarCarrito(idCarrito)" class="btn btn-outline-dark">
-                            <font-awesome-icon icon="fa-solid fa-trash" />
+                        <button type="button" @click="borrarCarrito(idCarrito)" class="btn btn-dark">
+                            <font-awesome-icon icon="fas-solid fa-trash" />
                         </button>
                     </th>
                 </tr>
@@ -36,9 +36,13 @@
 </template>
 <script>
 import axios from "axios";
+import FontAwesomeIcon from '@fortawesome/vue-fontawesome';
 
 export default {
     name: "CarritoAdmin",
+    component: {
+        FontAwesomeIcon
+    },
     props: {
         lista: Array,
         emailCarrito: String,
@@ -59,11 +63,12 @@ export default {
     },
     methods: {
         borrarCarrito(idElemento) {
-            const request = axios({
-                method: "DELETE",
-                url: "https://639f79eb5eb8889197fd60c9.mockapi.io/carrito/" + idElemento,
-            });
-            if (confirm("Estas seguro que deseas eliminar este pedido?")) {
+            let resultadoConfirm = confirm("Estas seguro que deseas eliminar este producto?");
+            if (resultadoConfirm == true) {
+                const request = axios({
+                    method: "DELETE",
+                    url: "https://639f79eb5eb8889197fd60c9.mockapi.io/carrito/" + idElemento,
+                });
                 let thisComponente = this;
                 request.then(function (response) {
                     console.log(response);

@@ -7,14 +7,15 @@
       <h2 class="card-title">
         <em>{{ nombre }}</em>
       </h2>
+
       <p class="card-text">
         $<em>{{ price }}</em>
       </p>
-      <div class="accordion-item">
+      <div class="accordion-item d-flex justify-content-center">
         <h2 class="accordion-header" id="headingThree">
           <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-            v-bind:data-bs-target="`#` + id" aria-expanded="false" aria-controls="collapseThree">
-            <strong> Mas info </strong>
+            v-bind:data-bs-target="`#` + id" aria-expanded="false" aria-controls="collapseThree" >
+            <font-awesome-icon icon="fa-solid fa-circle-info" />
           </button>
         </h2>
         <div v-bind:id="id" class="accordion-collapse collapse" aria-labelledby="headingThree"
@@ -58,7 +59,7 @@ export default {
   },
   methods: {
     addAlCarrito(idInputCantidad) {
-      if (this.$data.cantidad > 1){
+      if (this.$data.cantidad > 1) {
         console.log(idInputCantidad);
       }
       const input = $("#" + idInputCantidad)[0];

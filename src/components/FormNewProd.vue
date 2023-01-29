@@ -1,37 +1,82 @@
 <template>
     <div>
-        <form>
-            <div class="mb-3">
-                <label class="form-label">Nombre:</label>
-                <input v-model="newProdNombre" type="text" class="form-control">
-            </div>
-            <div class="mb-3">
-                <label class="form-label">Precio:</label>
-                <input v-model="newProdPrecio" type="number" class="form-control">
-            </div>
-            <div class="mb-3">
-                <label class="form-check-label" for="exampleCheck1">Descripcion:</label>
-                <input v-model="newProdDescripcion" type="text" class="form-control">
-            </div>
-            <div class="mb-3">
-                <label class="form-check-label" for="exampleCheck1">Link de la imagen:</label>
-                <input v-model="newProdImg" type="text" class="form-control">
-            </div>
-            <div class="mb-3">
-                <label class="form-check-label" for="exampleCheck1">Cantidad inicial:</label>
-                <input v-model="newProdCantidad" type="number" class="form-control" placeholder="Ingresar 1">
-            </div>
-            <button @click.prevent="agregarProducto()" type="submit" class="btn btn-outline-dark">Agregar</button>
-        </form>
+        <ValidationObserver v-slot="{ handleSubmit }">
+            <form role="form" class="form-control" @click.prevent="handleSubmit(agregarProducto)">
+                <div class=" mb-3">
+                    <ValidationProvider name="nombre" rules="alpha|required" v-slot="{ errors }">
+                        <label class="form-label">Nombre:</label>
+                        <input v-model="newProdNombre" type="text" class="form-control">
+                        <span class="text-danger">{{ errors[0] }}</span>
+                    </ValidationProvider>
+                </div>
+                <div class="mb-3">
+                    <ValidationProvider name="precio" rules="numeric|required" v-slot="{ errors }">
+                        <label class="form-label">Precio:</label>
+                        <input v-model="newProdPrecio" type="number" class="form-control">
+                        <span class="text-danger">{{ errors[0] }}</span>
+                    </ValidationProvider>
+                </div>
+                <div class="mb-3">
+                    <ValidationProvider name="descripcion" rules="required" v-slot="{ errors }">
+                        <label class="form-check-label" for="exampleCheck1">Descripcion:</label>
+                        <input v-model="newProdDescripcion" type="text" class="form-control">
+                        <span class="text-danger">{{ errors[0] }}</span>
+                    </ValidationProvider>
+                </div>
+                <div class="mb-3">
+                    <ValidationProvider name="link" rules="required" v-slot="{ errors }">
+                        <label class="form-check-label" for="exampleCheck1">Link de la imagen:</label>
+                        <input v-model="newProdImg" type="text" class="form-control">
+                        <span class="text-danger">{{ errors[0] }}</span>
+                    </ValidationProvider>
+                </div>
+                <div class="mb-3">
+                    <ValidationProvider name="cantidad" rules="numeric|required|between:1,1" v-slot="{ errors }">
+                        <label class="form-check-label" for="exampleCheck1">Cantidad inicial:</label>
+                        <input v-model="newProdCantidad" type="number" class="form-control" placeholder="Ingresar 1">
+                        <span class="text-danger">{{ errors[0] }}</span>
+                    </ValidationProvider>
+                </div>
+                <button type="submit" class="btn btn-outline-dark">Agregar</button>
+            </form>
+        </ValidationObserver>
     </div>
 </template>
+
 <script>
 import axios from 'axios';
 import $ from 'jquery/src/jquery.js';
-import 'bootstrap'
+import 'bootstrap';
+import { ValidationObserver, ValidationProvider  } from 'vee-validate';
+import { extend } from 'vee-validate';
+import { required, alpha, numeric, between } from 'vee-validate/dist/rules';
+
+
+extend('required', {
+    ...required,
+    message: 'Este campo es obligatorio.',
+});
+
+extend('alpha', {
+    ...alpha,
+    message: 'El campo {_field_} solo puede contener letras.'
+});
+
+extend('numeric', {
+    ...numeric,
+    message: 'El campo {_field_} solo puede contener numeros.'
+});
+extend('between', {
+    ...between,
+    message: 'El campo {_field_} solo puede contener el numero 1.'
+});
 
 export default {
     name: 'FormNewProd',
+    components: {
+        ValidationProvider,
+        ValidationObserver,
+    },
     data() {
         return {
             newProdNombre: '',
