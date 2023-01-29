@@ -3,7 +3,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Registrarse:</h5>
+                    <h5 class="modal-title text-success">Registrarse:</h5>
                 </div>
                 <ValidationObserver v-slot="{ handleSubmit }">
                     <div class="modal-body" id="modal-body">
@@ -125,6 +125,7 @@ export default {
     methods: {
         ...mapMutations('moduloClientes', ['guardarUsuPost']),
         ...mapGetters('moduloClientes', ['dibujarSpinner']),
+        // Post a la api
         validarFormulario() {
             const newAdmin = {
                 name: this.newAdminName,

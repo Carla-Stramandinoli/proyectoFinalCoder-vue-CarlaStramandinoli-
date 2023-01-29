@@ -3,6 +3,7 @@
         <ValidationObserver v-slot="{ handleSubmit }">
             <form role="form" class="form-control" @click.prevent="handleSubmit(agregarProducto)">
                 <div class=" mb-3">
+                <!-- nombre del producto -->
                     <ValidationProvider name="nombre" rules="alpha|required" v-slot="{ errors }">
                         <label class="form-label">Nombre:</label>
                         <input v-model="newProdNombre" type="text" class="form-control">
@@ -10,6 +11,7 @@
                     </ValidationProvider>
                 </div>
                 <div class="mb-3">
+                <!-- precio -->
                     <ValidationProvider name="precio" rules="numeric|required" v-slot="{ errors }">
                         <label class="form-label">Precio:</label>
                         <input v-model="newProdPrecio" type="number" class="form-control">
@@ -17,6 +19,7 @@
                     </ValidationProvider>
                 </div>
                 <div class="mb-3">
+                <!-- descripcion -->
                     <ValidationProvider name="descripcion" rules="required" v-slot="{ errors }">
                         <label class="form-check-label" for="exampleCheck1">Descripcion:</label>
                         <input v-model="newProdDescripcion" type="text" class="form-control">
@@ -24,6 +27,7 @@
                     </ValidationProvider>
                 </div>
                 <div class="mb-3">
+                <!-- link de la imagen -->
                     <ValidationProvider name="link" rules="required" v-slot="{ errors }">
                         <label class="form-check-label" for="exampleCheck1">Link de la imagen:</label>
                         <input v-model="newProdImg" type="text" class="form-control">
@@ -31,6 +35,7 @@
                     </ValidationProvider>
                 </div>
                 <div class="mb-3">
+                <!-- cantidad inicial -->
                     <ValidationProvider name="cantidad" rules="numeric|required|between:1,1" v-slot="{ errors }">
                         <label class="form-check-label" for="exampleCheck1">Cantidad inicial:</label>
                         <input v-model="newProdCantidad" type="number" class="form-control" placeholder="Ingresar 1">
@@ -87,6 +92,7 @@ export default {
         }
     },
     methods: {
+        // Post del producto a la api
         agregarProducto() {
             const nuevoProducto = {
                 name: this.newProdNombre,
@@ -108,7 +114,7 @@ export default {
                 $("#offcanvasRight").offcanvas('hide');
                 thisComponente.$emit("reloadNewItem")
             })
-            this.$toastr.s("Producto agregado correctamente");
+            this.$toastr.s("Nuevo producto agregado correctamente");
         }
     }
 };

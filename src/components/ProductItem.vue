@@ -14,7 +14,7 @@
         <h2 class=" accordion-header" id="headingThree">
           <button class="accordion-button collapsed btn-info" type="button" data-bs-toggle="collapse"
             v-bind:data-bs-target="`#` + id" aria-expanded="false" aria-controls="collapseThree">
-            <strong class="verMas">Ver mas</strong> <font-awesome-icon icon="fa-solid fa-circle-info" size="lg" />
+            <strong class="verMas">Ver mas</strong><font-awesome-icon icon="fa-solid fa-circle-info" size="lg" />
           </button>
           </h2>
         </div>

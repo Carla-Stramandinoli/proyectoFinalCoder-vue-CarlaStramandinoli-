@@ -3,7 +3,7 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h4 class="modal-title">Ingresar {{ titulo }}</h4>
+          <h4 class="modal-title text-success">Ingresar {{ titulo }}</h4>
         </div>
         <ValidationObserver v-slot="{ handleSubmit }">
           <div class="modal-body">
@@ -74,6 +74,7 @@ export default {
   methods: {
     ...mapActions('moduloClientes', ['obtenerUsuariosApi', 'obtenerAdminApi']),
     ...mapMutations('moduloClientes', ['guardarUsuActivo']),
+    // Validar si el usuario esta logueado, ingresarlo
     validarFormulario() {
       if (document.querySelector("#idError") != null) {
         document.querySelector("#idError").remove();
@@ -106,7 +107,6 @@ export default {
         }, 1000);
       } else {
         let divError = document.createElement("div");
-        // divError.className = "";
         divError.id = "idError";
         divError.innerHTML = `<p class="text-danger">Contraseña/email invalido</p>`;
         document.querySelector("#formLog-" + this.titulo).append(divError);

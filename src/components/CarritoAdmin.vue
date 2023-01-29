@@ -2,7 +2,6 @@
     <div>
         <div class="d-flex justify-content-center">
             <h5><strong>Carrito:</strong>{{ emailCarrito }}</h5>
-            |
             <h5><strong>Fecha de creacion:</strong>{{ dateFormat }}</h5>
         </div>
         <table class="table table-responsive table-bordered border-dark">

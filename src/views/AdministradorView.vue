@@ -1,6 +1,5 @@
 <template>
   <div>
-    <div>{{ tooltip() }}</div>
     <div class="d-flex justify-content-between m-2">
       <p class="bienvenida"><em> Bienvenido/a: {{ mostrarUsuActivo }}</em></p>
       <button @click="desloguear()" class="btn btn-danger logout" data-bs-toggle="tooltip" data-bs-placement="top"
@@ -11,7 +10,7 @@
     <div class="btn-group m-2">
       <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
         <div class="offcanvas-header">
-          <h4 class="offcanvas-title" id="offcanvasRightLabel">Agregar producto</h4>
+          <h4 class="offcanvas-title text-success" id="offcanvasRightLabel">Agregar producto</h4>
           <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
         <div class="offcanvas-body">
@@ -65,8 +64,6 @@ import FormNewProd from '@/components/FormNewProd.vue'
 import CarritoAdmin from '@/components/CarritoAdmin.vue'
 import { mapGetters, mapActions, mapMutations } from 'vuex';
 import axios from 'axios';
-import $ from 'jquery/src/jquery.js';
-
 
 export default {
   name: 'AdministradorView',
@@ -99,9 +96,6 @@ export default {
   methods: {
     ...mapActions('moduloClientes', ['obtenerAdminApi']),
     ...mapMutations('moduloClientes', ['desloguearUsuario']),
-    tooltip() {
-      $('[data-bs-toggle="tooltip"]').tooltip()
-    },
     cargarElementos() {
       const response = axios({
         method: "GET",

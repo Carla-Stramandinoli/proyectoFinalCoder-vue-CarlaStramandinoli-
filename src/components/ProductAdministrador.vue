@@ -2,7 +2,7 @@
   <div class="col-sm-3 p-2">
     <div class="card">
       <div class="card-body">
-        <h2 class="card-title">
+        <h2 class="card-title text-success">
           <em>{{ nombre }}</em>
         </h2>
         <p class="card-text">
