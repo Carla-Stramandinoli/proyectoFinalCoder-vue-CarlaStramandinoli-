@@ -20,8 +20,6 @@ const routes = [
     name: 'administrador',
     component: () => import('../views/AdministradorView.vue')
   },
-
-
 ]
 
 const router = new VueRouter({

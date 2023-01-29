@@ -3,17 +3,18 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h4 class="modal-title">Ingresar {{ titulo }}</h4>
+          <h4 class="modal-title text-success">Ingresar {{ titulo }}</h4>
         </div>
         <ValidationObserver v-slot="{ handleSubmit }">
           <div class="modal-body">
-            <form role="form" class="form-control" @submit.prevent="handleSubmit(validarFormulario)" id="formulario">
+            <form role="form" class="form-control " @submit.prevent="handleSubmit(validarFormulario)"
+              v-bind:id="'formLog-' + (titulo)">
               <!-- email -->
               <ValidationProvider name="email" rules="email|required" v-slot="{ errors }">
                 <label for="exampleInputEmail1" class="form-label">Email:</label>
                 <input v-model="email" type="email" class="form-control" id="exampleInputEmail1"
                   aria-describedby="emailHelp" />
-                <span>{{ errors[0] }}</span>
+                <span class="text-danger">{{ errors[0] }}</span>
                 <br>
               </ValidationProvider>
               <!-- password -->
@@ -68,12 +69,16 @@ export default {
     this.obtenerAdminApi();
   },
   computed: {
-    ...mapGetters('moduloClientes', ['getListaUsuCli', 'getListaAdmin'])
+    ...mapGetters('moduloClientes', ['getListaUsuCli', 'getListaAdmin', 'dibujarSpinner'])
   },
   methods: {
     ...mapActions('moduloClientes', ['obtenerUsuariosApi', 'obtenerAdminApi']),
     ...mapMutations('moduloClientes', ['guardarUsuActivo']),
+    // Validar si el usuario esta logueado, ingresarlo
     validarFormulario() {
+      if (document.querySelector("#idError") != null) {
+        document.querySelector("#idError").remove();
+      }
       let estaLogueado = false;
       let user = null;
       if (this.titulo == "cliente") {
@@ -94,11 +99,25 @@ export default {
       }
       if (estaLogueado) {
         this.guardarUsuActivo(user);
-        this.$emit("enviar", { user, view: this.titulo });
+        this.dibujarSpinner;
+        console.log("#formLog-" + this.titulo);
+        document.querySelector("#formLog-" + this.titulo).append(this.dibujarSpinner);
+        setTimeout(() => {
+          this.$emit("enviar", { user, view: this.titulo })
+        }, 1000);
       } else {
-        this.$toastr.e("Contraseña/email invalido");
+        let divError = document.createElement("div");
+        divError.id = "idError";
+        divError.innerHTML = `<p class="text-danger">Contraseña/email invalido</p>`;
+        document.querySelector("#formLog-" + this.titulo).append(divError);
       }
     }
   }
 };
 </script>
+
+<style scoped>
+.btn {
+  margin-bottom: 2%;
+}
+</style>
