@@ -1,23 +1,23 @@
 
 <template>
-  <!-- hacer que carguen las imagenes que yo quiero y no las de la api -->
   <div class="card col-3 m-2 border card-prod">
     <img :src="img" :alt="name" />
     <div class="card-body">
       <h2 class="card-title">
         <em>{{ nombre }}</em>
       </h2>
-
       <p class="card-text">
-        $<em>{{ price }}</em>
+        <em><strong>${{ price }}</strong></em>
       </p>
-      <div class="accordion-item d-flex justify-content-center">
-        <h2 class="accordion-header" id="headingThree">
-          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-            v-bind:data-bs-target="`#` + id" aria-expanded="false" aria-controls="collapseThree" >
-            <font-awesome-icon icon="fa-solid fa-circle-info" />
+      <div class="accordion-item">
+        <div class="d-flex justify-content-center">
+        <h2 class=" accordion-header" id="headingThree">
+          <button class="accordion-button collapsed btn-info" type="button" data-bs-toggle="collapse"
+            v-bind:data-bs-target="`#` + id" aria-expanded="false" aria-controls="collapseThree">
+            <strong class="verMas">Ver mas</strong> <font-awesome-icon icon="fa-solid fa-circle-info" size="lg" />
           </button>
-        </h2>
+          </h2>
+        </div>
         <div v-bind:id="id" class="accordion-collapse collapse" aria-labelledby="headingThree"
           data-bs-parent="#accordionExample">
           <div class="accordion-body">
@@ -89,5 +89,16 @@ h2 {
 input {
   width: 20%;
   margin-left: 3%;
+}
+
+.verMas {
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+img {
+  margin-top: 1%;
+  width: 294px;
+  height: 294px;
 }
 </style>

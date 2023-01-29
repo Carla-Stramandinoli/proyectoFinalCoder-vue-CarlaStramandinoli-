@@ -3,11 +3,13 @@
     <div>
       <carrito-compras @vaciar="vaciar($event)" :elements="itemDelCarrito" />
     </div>
-    <div class="d-flex justify-content-center m-2">
-      <p class="bienvenida">Bienvenido/a: {{ mostrarUsuActivo }}</p>
-      <button @click="desloguear()" class="btn btn-danger btn-sm logout">Log-out</button>
+    <div class="d-flex justify-content-between m-2">
+      <p class="bienvenida"><em> Bienvenido/a: {{ mostrarUsuActivo }}</em></p>
+      <button @click="desloguear()" class="btn btn-danger logout" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Log-out">
+        <font-awesome-icon icon="fa-solid fa-right-from-bracket" />
+      </button>
     </div>
-    <div>{{ cargarElementos() }}</div>
+    <!-- <div>{{ cargarElementos() }}</div> -->
     <div class="col-12">
       <div class="card-clientes">
         <div class="row m-2 d-flex justify-content-between">
@@ -25,6 +27,7 @@ import ProductItem from '@/components/ProductItem.vue'
 import CarritoCompras from '@/components/CarritoCompras.vue'
 import axios from 'axios';
 import { mapGetters, mapActions, mapMutations } from 'vuex';
+import $ from 'jquery/src/jquery.js';
 
 export default {
   name: 'ClientesView',
@@ -68,6 +71,8 @@ export default {
         console.log(response.data[0].imagen);
         thisComponenet.element = response.data;
       })
+      $('[data-bs-toggle="tooltip"]').tooltip()
+
     },
     agregarElemento(nuevoProducto) {
       let itemNoExiste = true;
@@ -101,11 +106,12 @@ export default {
   border-radius: 2%;
   margin-top: 1%;
 }
- .bienvenida{
+
+.bienvenida {
+  font-size: 20px;
   margin-top: 1%;
- }
+}
 .logout {
   margin-left: 1%;
 }
-
 </style>

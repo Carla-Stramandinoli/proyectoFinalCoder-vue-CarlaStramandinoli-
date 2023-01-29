@@ -1,8 +1,12 @@
 <template>
   <div>
-    <div class="d-flex justify-content-center m-2 ">
-      <p class="bienvenida">Bienvenido/a: {{ mostrarUsuActivo }}</p>
-      <button @click="desloguear()" class="btn btn-danger btn-sm logout">Log-out</button>
+    <div>{{ tooltip() }}</div>
+    <div class="d-flex justify-content-between m-2">
+      <p class="bienvenida"><em> Bienvenido/a: {{ mostrarUsuActivo }}</em></p>
+      <button @click="desloguear()" class="btn btn-danger logout" data-bs-toggle="tooltip" data-bs-placement="top"
+        data-bs-title="Log-out">
+        <font-awesome-icon icon="fa-solid fa-right-from-bracket" />
+      </button>
     </div>
     <div class="btn-group m-2">
       <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
@@ -46,8 +50,9 @@
         </div>
       </div>
       <div class="tab-pane fade" id="carrito-tab-pane" role="tabpanel" aria-labelledby="contact-tab" tabindex="0">
-        <carrito-admin @reloadCart="verCarritos()" v-for="(elemento, index) of carritoE" :key="index" :lista="elemento.list_productos"
-          :email-carrito="elemento.emailCli" :id-carrito="elemento.id" :date="elemento.createdAt" :zona="elemento.barrio">
+        <carrito-admin @reloadCart="verCarritos()" v-for="(elemento, index) of carritoE" :key="index"
+          :lista="elemento.list_productos" :email-carrito="elemento.emailCli" :id-carrito="elemento.id"
+          :date="elemento.createdAt" :zona="elemento.barrio">
         </carrito-admin>
       </div>
     </div>
@@ -60,6 +65,7 @@ import FormNewProd from '@/components/FormNewProd.vue'
 import CarritoAdmin from '@/components/CarritoAdmin.vue'
 import { mapGetters, mapActions, mapMutations } from 'vuex';
 import axios from 'axios';
+import $ from 'jquery/src/jquery.js';
 
 
 export default {
@@ -93,6 +99,9 @@ export default {
   methods: {
     ...mapActions('moduloClientes', ['obtenerAdminApi']),
     ...mapMutations('moduloClientes', ['desloguearUsuario']),
+    tooltip() {
+      $('[data-bs-toggle="tooltip"]').tooltip()
+    },
     cargarElementos() {
       const response = axios({
         method: "GET",
@@ -124,9 +133,11 @@ export default {
 </script>
 
 <style scoped>
- .bienvenida{
+.bienvenida {
+  font-size: 20px;
   margin-top: 1%;
- }
+}
+
 .logout {
   margin-left: 1%;
 }

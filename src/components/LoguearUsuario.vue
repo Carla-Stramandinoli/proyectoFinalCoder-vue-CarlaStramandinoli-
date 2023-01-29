@@ -14,7 +14,7 @@
                 <label for="exampleInputEmail1" class="form-label">Email:</label>
                 <input v-model="email" type="email" class="form-control" id="exampleInputEmail1"
                   aria-describedby="emailHelp" />
-                <span>{{ errors[0] }}</span>
+                <span class="text-danger">{{ errors[0] }}</span>
                 <br>
               </ValidationProvider>
               <!-- password -->
