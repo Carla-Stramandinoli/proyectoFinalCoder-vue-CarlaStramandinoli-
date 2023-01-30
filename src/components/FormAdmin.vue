@@ -51,10 +51,10 @@
                                 <br>
                             </ValidationProvider>
                             <!-- password -->
-                            <ValidationProvider name="password" rules="alpha_num|required" v-slot="{ errors }">
+                            <ValidationProvider name="password" rules="alpha_num|min:6|required" v-slot="{ errors }">
                                 <label for="exampleInputPassword1" class="form-label">Contraseña:</label>
                                 <input v-model="newAdminPass" type="password" class="form-control"
-                                    placeholder="Debe contener letras y numeros" id="exampleInputPassword1">
+                                    placeholder="Debe contener al menos 6 caracteres" id="exampleInputPassword1">
                                 <span class="text-danger">{{ errors[0] }}</span>
                                 <br>
                             </ValidationProvider>
@@ -76,7 +76,7 @@
 <script>
 import { ValidationProvider, ValidationObserver } from 'vee-validate';
 import { extend } from 'vee-validate';
-import { required, alpha, email, alpha_num, alpha_spaces } from 'vee-validate/dist/rules';
+import { required, alpha, email, alpha_num, alpha_spaces, min } from 'vee-validate/dist/rules';
 import axios from 'axios';
 import { mapMutations, mapGetters } from 'vuex';
 
@@ -100,6 +100,11 @@ extend('email', email);
 extend('alpha_num', {
     ...alpha_num,
     message: 'El campo {_field_} debe contener letras y numeros.'
+});
+
+extend('min', {
+  ...min,
+  message: 'El campo {_field_} debe contener al menos 6 caracteres.'
 });
 
 export default {
